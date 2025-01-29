@@ -1,8 +1,0 @@
-modules = ["java-graalvm22.3"]
-run = "mvn clean install; java -jar target/Megachile-0.0.jar"
-
-[nix]
-channel = "stable-24_05"
-
-[deployment]
-run = ["sh", "-c", "mvn clean install; java -jar target/Megachile-0.0.jar"]
