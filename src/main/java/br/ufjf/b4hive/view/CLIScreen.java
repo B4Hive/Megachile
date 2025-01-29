@@ -1,27 +1,67 @@
 package br.ufjf.b4hive.view;
-import br.ufjf.b4hive.model.field.*;
+import br.ufjf.b4hive.controller.CLI;
+import br.ufjf.b4hive.model.field.Coordinate;
+import br.ufjf.b4hive.model.field.FieldMap;
 
 public class CLIScreen {
-    private int[][] visibleMap;
-	private final int size;
+    private static int[][] visibleMap;
+	private static int size;
 
-	public CLIScreen(int size){
-		this.size = size;
-		this.visibleMap = new int[size][size];
+	public static void init(int s){
+		if(s % 2 == 0) s++;
+		size = s;
+		visibleMap = new int[size][size];
 	}
 
-	public void updateVisibleMap(FieldMap field){
-		for(int i = -this.size; i < this.size; i++){
-			for(int j = -this.size; j < this.size; j++){
-				Coordinate coord = field.getPlayerPos();
-				int tile = field.getTile(coord.x() + i, coord.y() + j).getTopID();
-				visibleMap[i + this.size][j + this.size] = tile;
+	public static void updateVisibleMap(FieldMap field){
+		for(int i = 1+(size/2); i > -size/2; i--){
+			for(int j = -size/2; j < 1+(size/2); j++){
+				Coordinate center = field.getPlayerPos();
+				int tile = field.getTile(center.x() + i, center.y() + j).getTopID();
+				visibleMap[i + size/2][j + size/2] = tile;
 				//looks a bit convoluted doesn't it?
 			}
 		}
 	}
-	public int[][] getVisibleMap(){
-		// TODO: update before getting
-		return this.visibleMap;
+
+	public static char[][] getVisibleMap(){
+		char [][] map = new char[size][size];
+        for(int i = 0; i < size; i++){
+            for(int j = 0; j < size; j++){
+                map[i][j] = (char)visibleMap[i][j]; //will be replaced with a dictionary from ID to icon
+            }
+        }
+		return map;
+	}
+
+	public static void printMap(){
+		CLI.clear();
+		char[][] map = getVisibleMap();
+
+		System.out.print(" +-");
+        for (int i = 0; i < size; i++) {
+            System.out.print("---");
+        }
+        System.out.println("-+ ");
+		
+		for(int i = 0; i < size; i++){
+			System.out.print(" | ");
+			for(int j = 0; j < size; j++){
+				System.out.print(" ");
+				System.out.print(map[i][j]);
+				System.out.print(" ");
+			}
+			System.out.println(" | ");
+		}
+
+		System.out.print(" +-");
+        for (int i = 0; i < size; i++) {
+            System.out.print("---");
+        }
+        System.out.println("-+ ");
+	}
+
+	public static void printBar(){
+		
 	}
 }
