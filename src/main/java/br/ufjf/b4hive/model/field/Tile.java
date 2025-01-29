@@ -27,6 +27,15 @@ public class Tile {
     public Entity getEntity() {
         return entity;
     }
+    public int getTopID(){
+        if(entity != null){
+            return entity.getID();
+        }
+        else if(item != null){
+            //return item.getID();
+        }
+        return type;
+    }
     public void setItem(Item item) {
         this.item = item;
     }

@@ -7,9 +7,9 @@ import br.ufjf.b4hive.model.inventory.Effect;
 import br.ufjf.b4hive.model.inventory.Inventory;
 
 public abstract class Entity {
+
     private final int id;
 	private final String name;
-	private int hpBase;
 	private float hpCurrent;
 	private Coordinate position;
 	private Inventory inventory;
@@ -18,10 +18,29 @@ public abstract class Entity {
 	public Entity(int id, String name) {
 		this.id = id;
 		this.name = name;
-		this.hpBase = 0;
-		this.hpCurrent = 0;
+		this.hpCurrent = 1;
 		this.position = null;
 		this.inventory = new Inventory();
 		this.effects = new ArrayList<>();
 	}
+
+	public int getID(){
+		return this.id;
+	}
+	public String getName(){
+		return this.name;
+	}
+	public int getMaxHP(){
+		return 100; // TODO: add the HP modifiers like armor
+	}
+	public int getCurrentHP(){
+		return getMaxHP() * (int) this.hpCurrent;
+	}
+	public Coordinate getPosition(){
+		return this.position;
+	}
+	public void setPosition(Coordinate position){
+		this.position = position;
+	}
+
 }
