@@ -25,7 +25,7 @@ public class CLIScreen {
 		} while (option != 's' && option != 'q');
 
 		do { //jogo
-
+			log.add("Input your command: ");
 			updateVisibleMap();
 			printMap();
 			//printBar();

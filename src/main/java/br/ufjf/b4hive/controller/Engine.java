@@ -40,9 +40,9 @@ public class Engine {
         Coordinate center = field.getPlayerPos();
         int x = center.x()-(size/2);
         int i = 0;
-        int y = center.y()+(size/2);
+        int y = center.y()-(size/2)-1;
         int j = size-1;
-        while(y >= center.y() - (size/2)){
+        while(y < center.y() + (size/2)){
             while(x < center.x() + (size/2) + 1){
                 int tile = field.getTile(x, y).getTopID();
                 visibleMap[i][j] = tile;
@@ -51,7 +51,7 @@ public class Engine {
             }
             x = center.x()-(size/2);
             i = 0;
-            y--;
+            y++;
             j--;
         }
         
@@ -66,9 +66,9 @@ public class Engine {
         Coordinate pos = e.getPosition();
         Coordinate newPos;
         switch (dir) {
-            case 'w' -> newPos = new Coordinate(pos.x(), pos.y()-1);
+            case 'w' -> newPos = new Coordinate(pos.x(), pos.y()+1);
             case 'a' -> newPos = new Coordinate(pos.x()-1, pos.y());
-            case 's' -> newPos = new Coordinate(pos.x(), pos.y()+1);
+            case 's' -> newPos = new Coordinate(pos.x(), pos.y()-1);
             case 'd' -> newPos = new Coordinate(pos.x()+1, pos.y());
             default -> newPos = pos;
         }
