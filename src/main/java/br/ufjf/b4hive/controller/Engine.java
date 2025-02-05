@@ -10,7 +10,7 @@ import br.ufjf.b4hive.model.field.FieldMap;
 
 public class Engine {
 
-    private static boolean running = true;
+    private static boolean running = false;
     private static List<Entity> entities;
     private static FieldMap field;
 
@@ -62,7 +62,7 @@ public class Engine {
         return movement(dir, Player());
     }
 
-    public static boolean movement(char dir, Entity e){
+    private static boolean movement(char dir, Entity e){
         Coordinate pos = e.getPosition();
         Coordinate newPos;
         switch (dir) {

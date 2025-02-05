@@ -14,7 +14,7 @@ public class FieldMap {
     public Tile getTile(Coordinate c){
         if(map.get(c) == null){
             int r = (int) (Math.random() * 10);
-            if(r < 2)
+            if(r < 2) //melhorar aleatoridade incluindo entidades e outros tiles
                 generateTile(c, new Tile(1));
             else
                 generateTile(c, new Tile(0));
@@ -25,7 +25,7 @@ public class FieldMap {
         Coordinate c = new Coordinate(x, y);
         return getTile(c);
     }
-    public void generateTile(Coordinate coord, Tile tile){
+    private void generateTile(Coordinate coord, Tile tile){
         map.put(coord, tile);
     }
     public void setPlayerPos(Coordinate coord){

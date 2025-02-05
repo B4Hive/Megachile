@@ -11,10 +11,8 @@ public class CLI {
         String os = System.getProperty("os.name").toLowerCase();
         try {
             if (os.contains("win")) {
-                // Comando para Windows
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
             } else {
-                // Comando para Linux/Unix/Mac
                 new ProcessBuilder("clear").inheritIO().start().waitFor();
             }
         } catch (Exception e) {

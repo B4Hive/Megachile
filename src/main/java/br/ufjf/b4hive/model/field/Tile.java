@@ -28,14 +28,11 @@ public class Tile {
         return entity;
     }
     public int getTopID(){
-        if(entity != null){
+        if (entity != null){
             return entity.getID();
+        } else if(item != null){
+            //return item.getID();
         }
-        /*
-        else if(item != null){
-            return item.getID();
-        }
-        */
         return type;
     }
     public void setItem(Item item) {

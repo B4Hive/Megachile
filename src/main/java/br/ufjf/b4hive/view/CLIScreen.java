@@ -35,20 +35,19 @@ public class CLIScreen {
 
 	}
 
-	public static void init(int s){
+	private static void init(int s){
 		if(s < 7) s = 7;
 		else if(s % 2 == 0) s++;
 		size = s;
 		visibleMap = new int[size][size];
 		Dictionary.init();
-		//vai chamar o menu principal daqui
 	}
 
-	public static void updateVisibleMap(){
+	private static void updateVisibleMap(){
 		visibleMap = Engine.getVisibleMap(size);
 	}
 
-	public static void printMap(){
+	private static void printMap(){
 		CLI.clear();
 
 		System.out.print(" +-");
@@ -74,11 +73,11 @@ public class CLIScreen {
         System.out.println("-+ ");
 	}
 
-	public static void printBar(){
+	private static void printBar(){
 		//
 	}
 
-	public static void printMainMenu(){
+	private static void printMainMenu(){
 		CLI.clear();
 
 		System.out.print(" +-");
