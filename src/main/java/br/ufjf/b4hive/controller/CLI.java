@@ -1,6 +1,10 @@
 package br.ufjf.b4hive.controller;
 
+import java.util.Scanner;
+
 public class CLI {
+
+    private static final Scanner scanner = new Scanner(System.in);
 
     @SuppressWarnings("UseSpecificCatch")
     public static void clear() {
@@ -18,13 +22,16 @@ public class CLI {
         }
     }
 
-    @SuppressWarnings("UseSpecificCatch")
     public static char getChar() {
-        try {
-            return (char) System.in.read();
-        } catch (Exception e) {
-            return ' ';
+        char c;
+        String temp = scanner.next();
+        scanner.nextLine();
+        if (temp.length() < 1) {
+            c = ' ';
+        } else {
+            c = temp.toLowerCase().charAt(0);
         }
+        return c;
     }
 
 }

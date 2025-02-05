@@ -13,7 +13,11 @@ public class FieldMap {
     }
     public Tile getTile(Coordinate c){
         if(map.get(c) == null){
-            generateTile(c, new Tile(0)); //tem que mudar isso pra aleatorizar o mapa, gerando tiles diferentes com conteudo diferente
+            int r = (int) (Math.random() * 10);
+            if(r < 2)
+                generateTile(c, new Tile(1));
+            else
+                generateTile(c, new Tile(0));
         }
         return map.get(c);
     }

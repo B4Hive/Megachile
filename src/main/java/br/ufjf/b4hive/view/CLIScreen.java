@@ -10,22 +10,28 @@ public class CLIScreen {
 		char option;
 		init(s);
 		
-		do{
+		do { //menu principal
 			printMainMenu();
 			option = CLI.getChar();
 			switch(option){
-				case '1':
-					Engine.newGame();
-					break;
-				case '0':
-					break;
-				default:
-					break;
+				case 's' -> Engine.newGame();
+				case 'q' -> System.exit(0);
+				default -> {}
 			}
-		}while(option != '0' && option != '1');
+		} while (option != 's' && option != 'q');
 
-		updateVisibleMap();
-		printMap();
+		do { //jogo
+			updateVisibleMap();
+			printMap();
+			option = CLI.getChar();
+			//adicionar movimentação
+			switch (option) {
+				case 'q' -> Engine.endGame();
+				case 'w', 'a', 's', 'd' -> Engine.movePlayer(option);
+				default -> {}
+			}
+		} while (option != 'q');
+
 
 	}
 
@@ -51,9 +57,9 @@ public class CLIScreen {
         }
         System.out.println("-+ ");
 		
-		for(int i = 0; i < size; i++){
+		for(int j = 0; j < size; j++){
 			System.out.print(" | ");
-			for(int j = 0; j < size; j++){
+			for(int i = 0; i < size; i++){
 				System.out.print(" ");
 				System.out.print(Dictionary.getIcon(visibleMap[i][j]));
 				System.out.print(" ");
@@ -87,7 +93,7 @@ public class CLIScreen {
 				for(int j = 0; j < ((size-3) * 3)/2; j++){
 					System.out.print(" ");
 				}
-				System.out.print("1 - Start");
+				System.out.print("S - Start");
 				for(int j = 0; j < ((size-3) * 3)/2; j++){
 					System.out.print(" ");
 				}
@@ -95,7 +101,7 @@ public class CLIScreen {
 				for(int j = 0; j < ((size-3) * 3)/2; j++){
 					System.out.print(" ");
 				}
-				System.out.print("0 - Quit ");
+				System.out.print("Q - Quit ");
 				for(int j = 0; j < ((size-3) * 3)/2; j++){
 					System.out.print(" ");
 				}

@@ -12,6 +12,7 @@ public class Dictionary {
         IDtoIcon.put(00, ',');
         IDtoIcon.put(01, '#');
         IDtoIcon.put(10, '@');
+        
     }
     public static char getIcon(int id){
         return IDtoIcon.get(id);
