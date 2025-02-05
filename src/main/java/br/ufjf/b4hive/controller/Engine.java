@@ -40,9 +40,9 @@ public class Engine {
         Coordinate center = field.getPlayerPos();
         int x = center.x()-(size/2);
         int i = 0;
-        int y = center.y()-(size/2)-1;
+        int y = center.y()-(size/2);
         int j = size-1;
-        while(y < center.y() + (size/2)){
+        while(y <= center.y() + (size/2)){
             while(x < center.x() + (size/2) + 1){
                 int tile = field.getTile(x, y).getTopID();
                 visibleMap[i][j] = tile;

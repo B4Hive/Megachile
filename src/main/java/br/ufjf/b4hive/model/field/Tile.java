@@ -13,6 +13,11 @@ public class Tile {
         this.item = item;
         this.entity = entity;
     }
+    public Tile(int type, Entity entity) {
+        this.type = type;
+        this.item = null;
+        this.entity = entity;
+    }
     public Tile(int type) {
         this.type = type;
         this.item = null;

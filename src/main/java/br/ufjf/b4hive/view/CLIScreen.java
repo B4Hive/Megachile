@@ -16,10 +16,15 @@ public class CLIScreen {
 		
 		do { //menu principal
 			printMainMenu();
+			System.out.println("Input your command: ");
 			option = CLI.getChar();
 			switch(option){
 				case 's' -> Engine.newGame();
-				case 'q' -> System.exit(0);
+				case 'q' -> {
+					CLI.clear();
+					System.out.println("Game Closed.");
+					System.exit(0);
+				}
 				default -> {}
 			}
 		} while (option != 's' && option != 'q');
