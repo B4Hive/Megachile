@@ -91,4 +91,46 @@ public class CLIScreen {
         System.out.println("-+ ");
 	}
 
+	public static void printMainMenu(){
+		CLI.clear();
+
+		System.out.print(" +-");
+        for (int i = 0; i < size; i++) {
+            System.out.print("---");
+        }
+        System.out.println("-+ ");
+
+		for(int i = 0; i < size; i++){
+			System.out.print(" | ");
+			if(i == (size/2) - 1){
+				for(int j = 0; j < ((size-3) * 3)/2; j++){
+					System.out.print(" ");
+				}
+				System.out.print("1 - Start");
+				for(int j = 0; j < ((size-3) * 3)/2; j++){
+					System.out.print(" ");
+				}
+			} else if (i == (size/2) + 1){
+				for(int j = 0; j < ((size-3) * 3)/2; j++){
+					System.out.print(" ");
+				}
+				System.out.print("0 - Quit ");
+				for(int j = 0; j < ((size-3) * 3)/2; j++){
+					System.out.print(" ");
+				}
+			} else {
+				for(int j = 0; j < size*3; j++){
+					System.out.print(" ");
+				}
+			}
+			System.out.println(" | ");
+		}
+
+		System.out.print(" +-");
+        for (int i = 0; i < size; i++) {
+            System.out.print("---");
+        }
+        System.out.println("-+ ");
+	}
+
 }
