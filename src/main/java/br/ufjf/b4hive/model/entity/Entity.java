@@ -43,9 +43,10 @@ public abstract class Entity {
 	public String takeDamage(int amount){
 		this.hpCurrent -= amount / getMaxHP();
 		if(this.hpCurrent < 0) this.hpCurrent = 0;
-		return this.name + " took " + amount + " damage.";
+		return this.name + " took " + amount + " damage. " + (this.hpCurrent*100) + "% HP remaining.";
 	}
-
-
+	public boolean alive(){
+		return this.hpCurrent > 0;
+	}
 
 }

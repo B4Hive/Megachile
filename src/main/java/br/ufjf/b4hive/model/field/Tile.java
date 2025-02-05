@@ -8,18 +8,18 @@ public class Tile {
     private Item item;
     private Entity entity;
 
-    public Tile(int type, Item item, Entity entity) {
-        this.type = type;
-        this.item = item;
-        this.entity = entity;
+    public Tile(int t, Item i, Entity e) {
+        this.type = t;
+        this.item = i;
+        this.entity = e;
     }
-    public Tile(int type, Entity entity) {
-        this.type = type;
+    public Tile(int t, Entity e) {
+        this.type = t;
         this.item = null;
-        this.entity = entity;
+        this.entity = e;
     }
-    public Tile(int type) {
-        this.type = type;
+    public Tile(int t) {
+        this.type = t;
         this.item = null;
         this.entity = null;
     }
@@ -32,18 +32,18 @@ public class Tile {
     public Entity getEntity() {
         return entity;
     }
-    public int getTopID(){
+    public int view(){
         if (entity != null){
             return entity.getID();
-        } else if(item != null){
+        //} else if(item != null){
             //return item.getID();
-        }
-        return type;
+        } else
+            return type;
     }
-    public void setItem(Item item) {
-        this.item = item;
+    public void setItem(Item i) {
+        this.item = i;
     }
-    public void setEntity(Entity entity) {
-        this.entity = entity;
+    public void setEntity(Entity e) {
+        this.entity = e;
     }
 }

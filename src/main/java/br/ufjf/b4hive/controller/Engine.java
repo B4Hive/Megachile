@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ufjf.b4hive.model.entity.Bee;
+import br.ufjf.b4hive.model.entity.Breakable;
 import br.ufjf.b4hive.model.entity.Entity;
 import br.ufjf.b4hive.model.field.Coordinate;
 import br.ufjf.b4hive.model.field.FieldMap;
+import br.ufjf.b4hive.model.field.Tile;
 
 public class Engine {
 
@@ -44,8 +46,15 @@ public class Engine {
         int j = size-1;
         while(y <= center.y() + (size/2)){
             while(x < center.x() + (size/2) + 1){
-                int tile = field.getTile(x, y).getTopID();
-                visibleMap[i][j] = tile;
+                if(field.getTile(x, y).getEntity() != null){
+                    Entity e = field.getTile(x, y).getEntity();
+                    if(!e.alive()){
+                        //e.die();
+                        field.getTile(x, y).setEntity(null);
+                    }
+                }
+                visibleMap[i][j] = field.getTile(x, y).view();
+                
                 x++;
                 i++;
             }
@@ -82,6 +91,23 @@ public class Engine {
         if (!field.getTile(newPos).getEntity().equals(e))
             return e.getName() + " attacks, " + field.getTile(newPos).getEntity().takeDamage(e.atk());
         return null;
+    }
+
+    public static Tile generateTile(){
+        int t = (int) (Math.random() * 10);
+        int e = (int) (Math.random() * 10);
+        Entity en = null;
+        Tile tile;
+        if(e < 1){
+            en = new Breakable(20, "Tree");
+        }
+        if(t > 9){
+            tile = new Tile(1);
+        } else{
+            tile = new Tile(0);
+        }
+        tile.setEntity(en);
+        return tile;
     }
 
 }

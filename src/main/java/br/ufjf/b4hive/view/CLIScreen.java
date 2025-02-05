@@ -48,6 +48,8 @@ public class CLIScreen {
 				}
 				default -> {}
 			}
+			//IA
+			//
 		} while (option != 'q');
 
 
