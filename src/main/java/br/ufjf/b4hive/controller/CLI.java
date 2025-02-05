@@ -2,6 +2,7 @@ package br.ufjf.b4hive.controller;
 
 public class CLI {
 
+    @SuppressWarnings("UseSpecificCatch")
     public static void clear() {
         String os = System.getProperty("os.name").toLowerCase();
         try {
@@ -14,6 +15,15 @@ public class CLI {
             }
         } catch (Exception e) {
             System.out.println("Erro ao tentar limpar a tela: " + e.getMessage());
+        }
+    }
+
+    @SuppressWarnings("UseSpecificCatch")
+    public static char getChar() {
+        try {
+            return (char) System.in.read();
+        } catch (Exception e) {
+            return ' ';
         }
     }
 

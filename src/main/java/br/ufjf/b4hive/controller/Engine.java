@@ -25,18 +25,31 @@ public class Engine {
         entities.add(new Bee(10, "@Player"));
         Player().setPosition(new Coordinate(0, 0));
         field.setPlayerPos(Player().getPosition());
+        field.getTile(Player().getPosition()).setEntity(Player());
     }
 
     public static int[][] getVisibleMap(int size){
         if(!running) System.exit(0);
         int[][] visibleMap = new int[size][size];
-        for(int i = 1+(size/2); i > -size/2; i--){
-            for(int j = -size/2; j < 1+(size/2); j++){
-                Coordinate center = field.getPlayerPos();
-                int tile = field.getTile(center.x() + i, center.y() + j).getTopID();
-                visibleMap[i + size/2][j + size/2] = tile;
+        
+        Coordinate center = field.getPlayerPos();
+        int x = center.x()-(size/2);
+        int i = 0;
+        int y = center.y()-(size/2);
+        int j = size-1;
+        while(y < center.y() + (size/2)){
+            while(x < center.x() + (size/2)){
+                int tile = field.getTile(x, y).getTopID();
+                visibleMap[i][j] = tile;
+                x++;
+                i++;
             }
+            x = center.x()-(size/2);
+            i = 0;
+            y++;
+            j--;
         }
+        
         return visibleMap;
     }
 

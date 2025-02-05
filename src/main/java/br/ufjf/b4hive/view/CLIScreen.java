@@ -6,6 +6,29 @@ public class CLIScreen {
     private static int[][] visibleMap;
 	private static int size;
 
+	public static void game(int s){
+		char option;
+		init(s);
+		
+		do{
+			printMainMenu();
+			option = CLI.getChar();
+			switch(option){
+				case '1':
+					Engine.newGame();
+					break;
+				case '0':
+					break;
+				default:
+					break;
+			}
+		}while(option != '0' && option != '1');
+
+		updateVisibleMap();
+		printMap();
+
+	}
+
 	public static void init(int s){
 		if(s < 7) s = 7;
 		else if(s % 2 == 0) s++;
