@@ -26,7 +26,7 @@ public abstract class Entity {
 		return this.name;
 	}
 	public int getMaxHP(){
-		return 100; //add the HP modifiers like armor
+		return 10; //add the HP modifiers like armor
 	}
 	public int getCurrentHP(){
 		return getMaxHP() * (int) this.hpCurrent;
@@ -38,9 +38,14 @@ public abstract class Entity {
 		this.position = position;
 	}
 
-	public void damage(int amount){
+	public abstract int atk();
+
+	public String takeDamage(int amount){
 		this.hpCurrent -= amount / getMaxHP();
 		if(this.hpCurrent < 0) this.hpCurrent = 0;
+		return this.name + " took " + amount + " damage.";
 	}
+
+
 
 }

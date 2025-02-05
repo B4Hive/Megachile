@@ -1,4 +1,7 @@
 package br.ufjf.b4hive.view;
+import java.util.ArrayList;
+import java.util.List;
+
 import br.ufjf.b4hive.controller.CLI;
 import br.ufjf.b4hive.controller.Engine;
 
@@ -9,6 +12,7 @@ public class CLIScreen {
 	public static void game(int s){
 		char option;
 		init(s);
+		List<String> log = new ArrayList<>();
 		
 		do { //menu principal
 			printMainMenu();
@@ -21,13 +25,22 @@ public class CLIScreen {
 		} while (option != 's' && option != 'q');
 
 		do { //jogo
+
 			updateVisibleMap();
 			printMap();
+			//printBar();
+			printLog(log);
 			option = CLI.getChar();
 			//adicionar movimentação
 			switch (option) {
-				case 'q' -> Engine.endGame();
-				case 'w', 'a', 's', 'd' -> Engine.movePlayer(option);
+				case 'q' -> {
+					Engine.endGame();
+					game(s);
+				}
+				case 'w', 'a', 's', 'd' -> {
+					String temp = Engine.movePlayer(option);
+					if(temp != null) log.add(temp);
+				}
 				default -> {}
 			}
 		} while (option != 'q');
@@ -73,8 +86,13 @@ public class CLIScreen {
         System.out.println("-+ ");
 	}
 
-	private static void printBar(){
-		//
+	//private static void printBar(){}
+
+	private static void printLog(List<String> log){
+		for(String s : log){
+			System.out.println(s);
+		}
+		log.clear();
 	}
 
 	private static void printMainMenu(){

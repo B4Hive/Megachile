@@ -58,11 +58,11 @@ public class Engine {
         return visibleMap;
     }
 
-    public static boolean movePlayer(char dir) {
+    public static String movePlayer(char dir) {
         return movement(dir, Player());
     }
 
-    private static boolean movement(char dir, Entity e){
+    private static String movement(char dir, Entity e){
         Coordinate pos = e.getPosition();
         Coordinate newPos;
         switch (dir) {
@@ -72,14 +72,16 @@ public class Engine {
             case 'd' -> newPos = new Coordinate(pos.x()+1, pos.y());
             default -> newPos = pos;
         }
-        if(field.getTile(newPos).getEntity() == null){
+        if (field.getTile(newPos).getEntity() == null){
             field.getTile(newPos).setEntity(e);
             field.getTile(pos).setEntity(null);
             e.setPosition(newPos);
             if(entities.indexOf(e) == 0) field.setPlayerPos(newPos);
-            return true;
+            return e.getName() + " moved to (" + newPos.x() + ", " + newPos.y() + ")";
         }
-        return false;
+        if (!field.getTile(newPos).getEntity().equals(e))
+            return e.getName() + " attacks, " + field.getTile(newPos).getEntity().takeDamage(e.atk());
+        return null;
     }
 
 }
