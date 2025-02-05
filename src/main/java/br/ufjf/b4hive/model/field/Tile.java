@@ -31,9 +31,11 @@ public class Tile {
         if(entity != null){
             return entity.getID();
         }
+        /*
         else if(item != null){
-            //return item.getID();
+            return item.getID();
         }
+        */
         return type;
     }
     public void setItem(Item item) {

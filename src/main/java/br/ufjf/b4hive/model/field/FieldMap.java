@@ -15,7 +15,11 @@ public class FieldMap {
         return map.get(coord);
     }
     public Tile getTile(int x, int y){
-        return map.get(new Coordinate(x, y));
+        Coordinate c = new Coordinate(x, y);
+        if(map.get(c) == null){
+            generateTile(c, new Tile(0)); //tem que mudar isso pra aleatorizar o mapa, gerando tiles diferentes com conteudo diferente
+        }
+        return map.get(c);
     }
     public void generateTile(Coordinate coord, Tile tile){
         map.put(coord, tile);
