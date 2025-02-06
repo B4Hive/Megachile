@@ -35,8 +35,8 @@ public class Tile {
     public int view(){
         if (entity != null){
             return entity.getID();
-        //} else if(item != null){
-            //return item.getID();
+        } else if(item != null){
+            return item.getID();
         } else
             return type;
     }

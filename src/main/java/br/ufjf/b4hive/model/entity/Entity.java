@@ -1,5 +1,6 @@
 package br.ufjf.b4hive.model.entity;
 import br.ufjf.b4hive.model.field.Coordinate;
+import br.ufjf.b4hive.model.inventory.Item;
 
 public abstract class Entity {
 
@@ -41,12 +42,21 @@ public abstract class Entity {
 	public abstract int atk();
 
 	public String takeDamage(int amount){
-		this.hpCurrent -= amount / getMaxHP();
-		if(this.hpCurrent < 0) this.hpCurrent = 0;
-		return this.name + " took " + amount + " damage. " + (this.hpCurrent*100) + "% HP remaining.";
+		String result = this.name + " took " + amount + " damage. ";
+		float hp = getMaxHP() * this.hpCurrent;
+		hp -= amount;
+		this.hpCurrent = hp / getMaxHP();
+		int hpPercent = (int) (this.hpCurrent * 100);
+		result += hpPercent + "% HP remaining.";
+		if(hpPercent < 0) {
+			this.hpCurrent = 0;
+		}
+		return result;
 	}
 	public boolean alive(){
 		return this.hpCurrent > 0;
 	}
-
+	public Item calcDrop(){
+        return new Item(30, "Item");
+    }
 }

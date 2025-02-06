@@ -9,6 +9,7 @@ import br.ufjf.b4hive.model.entity.Entity;
 import br.ufjf.b4hive.model.field.Coordinate;
 import br.ufjf.b4hive.model.field.FieldMap;
 import br.ufjf.b4hive.model.field.Tile;
+import br.ufjf.b4hive.model.inventory.Item;
 
 public class Engine {
 
@@ -49,12 +50,12 @@ public class Engine {
                 if(field.getTile(x, y).getEntity() != null){
                     Entity e = field.getTile(x, y).getEntity();
                     if(!e.alive()){
-                        //e.die();
+                        Item it = e.calcDrop();
+                        field.getTile(x, y).setItem(it);
                         field.getTile(x, y).setEntity(null);
                     }
                 }
                 visibleMap[i][j] = field.getTile(x, y).view();
-                
                 x++;
                 i++;
             }
@@ -63,7 +64,6 @@ public class Engine {
             y++;
             j--;
         }
-        
         return visibleMap;
     }
 

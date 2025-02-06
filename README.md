@@ -1,15 +1,15 @@
-# 🐝 Megachile  
+# 🐝 Megachile
 
-## **Trabalho de Modelagem de Sistemas (DCC117)**  
+## **Trabalho de Modelagem de Sistemas (DCC117)**
 
-### 📌 Pré-requisito  
+### 📌 Pré-requisito
 - [Maven](https://maven.apache.org/) instalado
 
-### ⚙️ Compilação  
+### ⚙️ Compilação
 ```sh
 mvn clean install
 ```
 ### 🚀 Execução
 ```
-java -jar target/Megachile.jar
+java -jar target/Megachile-0.2.jar
 ```

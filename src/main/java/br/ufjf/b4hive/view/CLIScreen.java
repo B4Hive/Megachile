@@ -52,7 +52,6 @@ public class CLIScreen {
 			//
 		} while (option != 'q');
 
-
 	}
 
 	private static void init(int s){
