@@ -46,7 +46,9 @@ public class CLIScreen {
 					String temp = Engine.movePlayer(option);
 					if(temp != null) log.add(temp);
 				}
-				case 'e' -> {}//inventory
+				case 'e' -> {
+					printInventory();
+				}
 				default -> {}
 			}
 			String temp = Engine.takeItem(); // vai mudar pra tick
@@ -144,6 +146,14 @@ public class CLIScreen {
             System.out.print("---");
         }
         System.out.println("-+ ");
+	}
+
+	private static void printInventory(){
+		CLI.clear();
+		System.out.println("Inventory: ");
+		for(String i : Engine.listPlayerInventory()){
+			System.out.println(i);
+		}
 	}
 
 }

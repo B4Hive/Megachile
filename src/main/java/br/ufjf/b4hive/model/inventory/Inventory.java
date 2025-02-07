@@ -2,6 +2,7 @@ package br.ufjf.b4hive.model.inventory;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class Inventory {
     
@@ -45,6 +46,14 @@ public class Inventory {
             result = "Item not found in the inventory.";
         }
         return result;
+    }
+
+    public Set<Item> listItems(){
+        return items.keySet();
+    }
+
+    public int getItemAmount(Item item){
+        return items.get(item);
     }
 
 }

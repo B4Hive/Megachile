@@ -118,6 +118,17 @@ public class Engine {
         return null;
     }
 
+    public static List<String> listPlayerInventory(){
+        List<String> inv = new ArrayList<>();
+        for(Item i : player.getInventory().listItems()){
+            String temp = i.getName();
+            temp += ", ";
+            temp += player.getInventory().getItemAmount(i);
+            temp += ".";
+            inv.add(temp);
+        }
+        return inv;
+    }
     public static void tick(){
         //
     }

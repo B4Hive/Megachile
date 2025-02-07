@@ -14,7 +14,7 @@ public class Bee extends Entity{
 
     public String takeItem(Item item){
         String result = this.getName() + " took " + item.getName() + ". ";
-        result += this.inventory.addItem(item);
+        result += getInventory().addItem(item);
         return result;
     }
 }
