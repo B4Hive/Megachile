@@ -46,8 +46,11 @@ public class CLIScreen {
 					String temp = Engine.movePlayer(option);
 					if(temp != null) log.add(temp);
 				}
+				case 'e' -> {}//inventory
 				default -> {}
 			}
+			String temp = Engine.takeItem(); // vai mudar pra tick
+			if(temp != null) log.add(temp);
 			//IA
 			//
 		} while (option != 'q');

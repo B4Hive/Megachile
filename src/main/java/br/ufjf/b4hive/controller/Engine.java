@@ -16,19 +16,16 @@ public class Engine {
     private static boolean running = false;
     private static List<Entity> entities;
     private static FieldMap field;
-
-    private static Entity Player(){
-        return entities.get(0);
-    }
+    private static Bee player;
     
     public static void newGame(){
         running = true;
         field = new FieldMap();
         entities = new ArrayList<>();
-        entities.add(new Bee(10, "@Player"));
-        Player().setPosition(new Coordinate(0, 0));
-        field.setPlayerPos(Player().getPosition());
-        field.getTile(Player().getPosition()).setEntity(Player());
+        player = new Bee(10, "@Player");
+        player.setPosition(new Coordinate(0, 0));
+        field.setPlayerPos(player.getPosition());
+        field.getTile(player.getPosition()).setEntity(player);
     }
 
     public static void endGame(){
@@ -67,8 +64,25 @@ public class Engine {
         return visibleMap;
     }
 
+    public static Tile generateTile(){
+        int t = (int) (Math.random() * 10);
+        int e = (int) (Math.random() * 10);
+        Entity en = null;
+        Tile tile;
+        if(e < 1){
+            en = new Breakable(20, "Tree");
+        }
+        if(t > 9){
+            tile = new Tile(1);
+        } else{
+            tile = new Tile(0);
+        }
+        tile.setEntity(en);
+        return tile;
+    }
+
     public static String movePlayer(char dir) {
-        return movement(dir, Player());
+        return movement(dir, player);
     }
 
     private static String movement(char dir, Entity e){
@@ -93,21 +107,19 @@ public class Engine {
         return null;
     }
 
-    public static Tile generateTile(){
-        int t = (int) (Math.random() * 10);
-        int e = (int) (Math.random() * 10);
-        Entity en = null;
-        Tile tile;
-        if(e < 1){
-            en = new Breakable(20, "Tree");
+    public static String takeItem(){
+        Coordinate pos = player.getPosition();
+        Tile tile = field.getTile(pos);
+        if(tile.getItem() != null){
+            Item item = tile.getItem();
+            tile.setItem(null);
+            return player.takeItem(item);
         }
-        if(t > 9){
-            tile = new Tile(1);
-        } else{
-            tile = new Tile(0);
-        }
-        tile.setEntity(en);
-        return tile;
+        return null;
+    }
+
+    public static void tick(){
+        //
     }
 
 }

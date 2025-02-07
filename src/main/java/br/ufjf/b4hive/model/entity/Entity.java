@@ -1,5 +1,6 @@
 package br.ufjf.b4hive.model.entity;
 import br.ufjf.b4hive.model.field.Coordinate;
+import br.ufjf.b4hive.model.inventory.Inventory;
 import br.ufjf.b4hive.model.inventory.Item;
 
 public abstract class Entity {
@@ -8,7 +9,7 @@ public abstract class Entity {
 	private final String name;
 	private float hpCurrent;
 	private Coordinate position;
-	//private Inventory inventory;
+	Inventory inventory;
 	//private List<Effect> effects;
 
 	public Entity(int id, String name) {
@@ -16,7 +17,7 @@ public abstract class Entity {
 		this.name = name;
 		this.hpCurrent = 1;
 		this.position = null;
-		//this.inventory = new Inventory();
+		this.inventory = new Inventory();
 		//this.effects = new ArrayList<>();
 	}
 
