@@ -7,13 +7,13 @@ import java.util.List;
 public class Inventory {
     
     private final List<Item> items;
-    //private Item weapon; //type:Weapon
-    //private Item armor; //type:Armor
+    private Item hand; //type:Weapon
+    private Armor body; //type:Armor
 
     public Inventory() {
         this.items = new ArrayList<>();
-        //this.weapon = null;
-        //this.armor = null;
+        this.hand = null;
+        this.body = null;
     }
 
     public String addItem(Item item){
@@ -49,4 +49,27 @@ public class Inventory {
         items.sort((item1, item2) -> item1.getName().compareToIgnoreCase(item2.getName()));
     }
 
+    public Item getHand() {
+        return hand;
+    }
+
+    public Item getBody() {
+        return body;
+    }
+
+    public void setBody(Armor body) {
+        this.body = body;
+    }
+
+    public void holdItem(Item item){
+        if (this.hand == null){
+            hand = item;
+            this.items.remove(item);
+        }
+        else {
+            this.items.add(hand);
+            hand = item;
+            this.items.remove(item);
+        }
+    }
 }

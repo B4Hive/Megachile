@@ -3,6 +3,8 @@ package br.ufjf.b4hive.model.entity;
 import br.ufjf.b4hive.model.field.Coordinate;
 import br.ufjf.b4hive.model.inventory.Inventory;
 import br.ufjf.b4hive.model.inventory.Item;
+import br.ufjf.b4hive.model.inventory.Weapon;
+
 
 public abstract class Entity {
 
@@ -43,7 +45,13 @@ public abstract class Entity {
 	public Inventory getInventory(){
 		return this.inventory;
 	}
-	public abstract int atk();
+	public int atk(){
+		int a = 1;
+		if (this.inventory.getHand() instanceof Weapon weapon){
+			a += weapon.getValue();
+		}
+		return a; // add the atk modifiers like weapons
+	}
 
 	public String takeDamage(int amount){
 		String result = this.name + " took " + amount + " damage. ";

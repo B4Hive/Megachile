@@ -125,6 +125,8 @@ public class Engine {
         if(!running) System.exit(0);
 
         List<String> inv = new ArrayList<>();
+        inv.add(player.getInventory().getHand().getName());
+        inv.add(player.getInventory().getBody().getName());
         for(Item i : player.getInventory().listItems()){
             String temp = i.getName();
             temp += ".";
