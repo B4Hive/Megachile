@@ -9,7 +9,7 @@ public class Bee extends Entity{
     
     @Override
     public int atk(){
-        return 1;//add the atk modifiers like weapon
+        return 5; // add the atk modifiers like weapon
     }
 
     public String takeItem(Item item){

@@ -29,7 +29,7 @@ public abstract class Entity {
 		return this.name;
 	}
 	public int getMaxHP(){
-		return 10; //add the HP modifiers like armor
+		return 10; // add the HP modifiers like armor
 	}
 	public int getCurrentHP(){
 		return getMaxHP() * (int) this.hpCurrent;
@@ -61,6 +61,9 @@ public abstract class Entity {
 		return this.hpCurrent > 0;
 	}
 	public Item calcDrop(){
-        return new Item(30, "Item");
+		if(Math.random() < 0.5)
+	        return new Item(30, "Item");
+		else
+			return new Item(31, "Meti");
     }
 }

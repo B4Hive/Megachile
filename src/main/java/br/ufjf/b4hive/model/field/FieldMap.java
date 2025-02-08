@@ -7,11 +7,9 @@ import br.ufjf.b4hive.controller.Engine;
 
 public class FieldMap {
     private final Map <Coordinate, Tile> map;
-    private Coordinate playerPos;
 
     public FieldMap(){
         this.map = new HashMap<>();
-        this.playerPos = null;
     }
     public Tile getTile(Coordinate c){
         if(!map.containsKey(c)){
@@ -26,10 +24,5 @@ public class FieldMap {
     private void generateTile(Coordinate c){
         map.put(c, Engine.generateTile());
     }
-    public void setPlayerPos(Coordinate coord){
-        playerPos = coord;
-    }
-    public Coordinate getPlayerPos(){
-        return playerPos;
-    }
+
 }

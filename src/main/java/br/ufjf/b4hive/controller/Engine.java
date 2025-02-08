@@ -14,30 +14,28 @@ import br.ufjf.b4hive.model.inventory.Item;
 public class Engine {
 
     private static boolean running = false;
-    private static List<Entity> entities;
     private static FieldMap field;
     private static Bee player;
     
     public static void newGame(){
         running = true;
         field = new FieldMap();
-        entities = new ArrayList<>();
         player = new Bee(10, "@Player");
         player.setPosition(new Coordinate(0, 0));
-        field.setPlayerPos(player.getPosition());
         field.getTile(player.getPosition()).setEntity(player);
     }
 
     public static void endGame(){
         running = false;
-        //aqui vai ter que salvar o jogo
+        // save the game here
     }
 
     public static int[][] getVisibleMap(int size){
         if(!running) System.exit(0);
+
         int[][] visibleMap = new int[size][size];
         
-        Coordinate center = field.getPlayerPos();
+        Coordinate center = player.getPosition();
         int x = center.x()-(size/2);
         int i = 0;
         int y = center.y()-(size/2);
@@ -65,6 +63,8 @@ public class Engine {
     }
 
     public static Tile generateTile(){
+        if(!running) System.exit(0);
+
         int t = (int) (Math.random() * 10);
         int e = (int) (Math.random() * 10);
         Entity en = null;
@@ -86,6 +86,8 @@ public class Engine {
     }
 
     private static String movement(char dir, Entity e){
+        if(!running) System.exit(0);
+
         Coordinate pos = e.getPosition();
         Coordinate newPos;
         switch (dir) {
@@ -99,7 +101,6 @@ public class Engine {
             field.getTile(newPos).setEntity(e);
             field.getTile(pos).setEntity(null);
             e.setPosition(newPos);
-            if(entities.indexOf(e) == 0) field.setPlayerPos(newPos);
             return e.getName() + " moved to (" + newPos.x() + ", " + newPos.y() + ")";
         }
         if (!field.getTile(newPos).getEntity().equals(e))
@@ -108,6 +109,8 @@ public class Engine {
     }
 
     public static String takeItem(){
+        if(!running) System.exit(0);
+
         Coordinate pos = player.getPosition();
         Tile tile = field.getTile(pos);
         if(tile.getItem() != null){
@@ -119,18 +122,20 @@ public class Engine {
     }
 
     public static List<String> listPlayerInventory(){
+        if(!running) System.exit(0);
+
         List<String> inv = new ArrayList<>();
         for(Item i : player.getInventory().listItems()){
             String temp = i.getName();
-            temp += ", ";
-            temp += player.getInventory().getItemAmount(i);
             temp += ".";
             inv.add(temp);
         }
         return inv;
     }
+    
     public static void tick(){
-        //
+        if(!running) System.exit(0);
+        // will tick the effects on all visible units and do other stuff
     }
 
 }
