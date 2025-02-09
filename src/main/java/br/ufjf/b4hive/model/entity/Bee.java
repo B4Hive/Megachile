@@ -19,4 +19,8 @@ public class Bee extends Entity{
         return getInventory().dropItem(chance);
     }
 
+    public String useItem(int n) {
+        return getInventory().getItem(n).use(getInventory());
+    }
+
 }

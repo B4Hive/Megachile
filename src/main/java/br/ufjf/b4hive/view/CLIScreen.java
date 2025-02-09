@@ -10,7 +10,7 @@ public class CLIScreen {
     private static int[][] visibleMap;
 	private static int size;
 
-	public static void game(int s){
+	public static void show(int s){
 		init(s);
 		mainMenuScreen();
 	}
@@ -41,7 +41,7 @@ public class CLIScreen {
 					System.exit(0);
 				}
 				default -> {
-					//System.out.println("Invalid command.");
+					
 				}
 			}
 		} while (option != 'q');
@@ -50,15 +50,23 @@ public class CLIScreen {
 	private static void printMainMenu(){
 		CLI.clear();
 
-		System.out.print(" +-");
+		System.out.print(" ╔═");
         for (int i = 0; i < size; i++) {
-            System.out.print("---");
+            System.out.print("═══");
         }
-        System.out.println("-+ ");
+        System.out.println("═╗ ");
 
 		for(int i = 0; i < size; i++){
-			System.out.print(" | ");
-			if(i == (size/2) - 1){
+			System.out.print(" ║ ");
+			if (i == 1){
+				for(int j = 0; j < ((size-3) * 3)/2; j++){
+					System.out.print(" ");
+				}
+				System.out.print("MEGACHILE");
+				for(int j = 0; j < ((size-3) * 3)/2; j++){
+					System.out.print(" ");
+				}
+			} else if(i == (size/2) - 1){
 				for(int j = 0; j < ((size-3) * 3)/2; j++){
 					System.out.print(" ");
 				}
@@ -79,14 +87,14 @@ public class CLIScreen {
 					System.out.print(" ");
 				}
 			}
-			System.out.println(" | ");
+			System.out.println(" ║ ");
 		}
 
-		System.out.print(" +-");
+		System.out.print(" ╚═");
         for (int i = 0; i < size; i++) {
-            System.out.print("---");
+            System.out.print("═══");
         }
-        System.out.println("-+ ");
+        System.out.println("═╝ ");
 	}
 
 	private static void gameScreen() {
@@ -96,7 +104,7 @@ public class CLIScreen {
 			log.add("Input your command: ");
 			updateVisibleMap();
 			printMap();
-			//printBar();
+			printBar();
 			System.out.println("WASD - Move | C - Inventory | E - Take Item | Q - Quit");
 			printLog(log);
 			option = CLI.getChar();
@@ -118,7 +126,7 @@ public class CLIScreen {
 					log.add(temp);
 				}
 				default -> {
-					//System.out.println("Invalid command.");
+					
 				}
 			}
 			// IA
@@ -132,30 +140,42 @@ public class CLIScreen {
 	private static void printMap(){
 		CLI.clear();
 
-		System.out.print(" +-");
+		System.out.print(" ╔═");
         for (int i = 0; i < size; i++) {
-            System.out.print("---");
+            System.out.print("═══");
         }
-        System.out.println("-+ ");
+        System.out.println("═╗ ");
 		
 		for(int j = 0; j < size; j++){
-			System.out.print(" | ");
+			System.out.print(" ║ ");
 			for(int i = 0; i < size; i++){
 				System.out.print(" ");
 				System.out.print(Dictionary.getIcon(visibleMap[i][j]));
 				System.out.print(" ");
 			}
-			System.out.println(" | ");
+			System.out.println(" ║ ");
 		}
 
-		System.out.print(" +-");
+		System.out.print(" ╠═");
         for (int i = 0; i < size; i++) {
-            System.out.print("---");
+            System.out.print("═══");
         }
-        System.out.println("-+ ");
+        System.out.println("═╣ ");
 	}
 
-	//private static void printBar(){}
+	private static void printBar(){
+		System.out.print(" ║ ");
+		for(int j = 0; j < (size * 3); j++){
+			System.out.print(" "); // 4 lines: HP, Hunger, Position, QuickSlots
+		}
+		System.out.println(" ║ ");
+
+		System.out.print(" ╚═");
+        for (int i = 0; i < size; i++) {
+            System.out.print("═══");
+        }
+        System.out.println("═╝ ");
+	}
 
 	private static void printLog(List<String> log){
 		for(String s : log){

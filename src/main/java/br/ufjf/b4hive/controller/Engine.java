@@ -146,9 +146,7 @@ public class Engine {
     public static String useItem(int n){
         if(!running) System.exit(0);
 
-        Item item = player.getInventory().getItem(n);
-        if(item == null) return "Empty";
-        //return player.useItem(item);
-        return "NYI";
+        if(player.getInventory().getItem(n) == null) return null;
+        return player.useItem(n);
     }
 }
