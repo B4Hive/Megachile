@@ -30,6 +30,10 @@ public class Item {
         return this.durabilityMax;
     }
 
+    public String getInfo(){
+        return this.name + " - Durability: " + this.durability + "/" + this.durabilityMax;
+    }
+
     public void lowerDurability(int amount){
         this.durability -= amount;
         if(this.durability < 0){

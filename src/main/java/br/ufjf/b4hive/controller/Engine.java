@@ -45,7 +45,7 @@ public class Engine {
                 if(field.getTile(x, y).getEntity() != null){
                     Entity e = field.getTile(x, y).getEntity();
                     if(!e.alive()){
-                        Item it = e.calcDrop();
+                        Item it = e.drop((int) (Math.random() * 100));
                         field.getTile(x, y).setItem(it);
                         field.getTile(x, y).setEntity(null);
                     }
@@ -125,19 +125,30 @@ public class Engine {
         if(!running) System.exit(0);
 
         List<String> inv = new ArrayList<>();
-        inv.add(player.getInventory().getHand().getName());
-        inv.add(player.getInventory().getBody().getName());
-        for(Item i : player.getInventory().listItems()){
-            String temp = i.getName();
-            temp += ".";
+        for(int i = 0; i < player.getInventory().getSize(); i++){
+            Item item = player.getInventory().getItem(i);
+            String temp;
+            if(item == null) temp = "Empty";
+            else temp = item.getInfo();
             inv.add(temp);
         }
         return inv;
     }
     
-    public static void tick(){
+    public static String playerItemInfo(int n){
         if(!running) System.exit(0);
-        // will tick the effects on all visible units and do other stuff
+
+        Item item = player.getInventory().getItem(n);
+        if(item == null) return "Empty";
+        return item.getInfo();
     }
 
+    public static String useItem(int n){
+        if(!running) System.exit(0);
+
+        Item item = player.getInventory().getItem(n);
+        if(item == null) return "Empty";
+        //return player.useItem(item);
+        return "NYI";
+    }
 }

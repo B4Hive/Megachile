@@ -27,7 +27,8 @@ public class CLIScreen {
 		char option;
 		do {
 			printMainMenu();
-			System.out.println("Input your command: ");
+			System.out.println();
+			System.out.print("Input your command: ");
 			option = CLI.getChar();
 			switch(option){
 				case 's' -> {
@@ -39,9 +40,11 @@ public class CLIScreen {
 					System.out.println("Game Closed.");
 					System.exit(0);
 				}
-				default -> {}
+				default -> {
+					//System.out.println("Invalid command.");
+				}
 			}
-		} while (option != 's' && option != 'q');
+		} while (option != 'q');
 	}
 
 	private static void printMainMenu(){
@@ -94,6 +97,7 @@ public class CLIScreen {
 			updateVisibleMap();
 			printMap();
 			//printBar();
+			System.out.println("WASD - Move | C - Inventory | E - Take Item | Q - Quit");
 			printLog(log);
 			option = CLI.getChar();
 			switch (option) {
@@ -104,13 +108,18 @@ public class CLIScreen {
 				case 'w', 'a', 's', 'd' -> {
 					String temp = Engine.movePlayer(option);
 					log.add(temp);
-					temp = Engine.takeItem(); // vai mudar pra tick
+				}
+				case 'c' -> {
+					String temp = inventoryScreen();
 					log.add(temp);
 				}
 				case 'e' -> {
-					inventoryScreen();
+					String temp = Engine.takeItem();
+					log.add(temp);
 				}
-				default -> {}
+				default -> {
+					//System.out.println("Invalid command.");
+				}
 			}
 			// IA
 		} while (option != 'q');
@@ -151,24 +160,32 @@ public class CLIScreen {
 	private static void printLog(List<String> log){
 		for(String s : log){
 			if(s == null) continue;
-			System.out.println(s);
+			System.out.println();
+			System.out.print(s);
 		}
 		log.clear();
 	}
 
-	private static void inventoryScreen(){
+	private static String inventoryScreen(){
 		char option;
 		do {
 			printInventory();
-			System.out.println("Input your command: ");
+			System.out.print("Input your command: ");
 			option = CLI.getChar();
 			if(option == 'q') gameScreen();
 
-			int n = Integer.parseInt(String.valueOf(option));
-			if(n >= 0 && n < Engine.listPlayerInventory().size()){
-				//Engine.playerItemInfo(n);
+			int n;
+			try {
+				n = Integer.parseInt(String.valueOf(option));
+			} catch (NumberFormatException e) {
+				n = -1;
 			}
-		} while (option != 's' && option != 'q');
+			if(n >= 0 && n < Engine.listPlayerInventory().size()){
+				String temp = itemScreen(n);
+				if(temp != null) return temp;
+			}
+		} while (option != 'q');
+		return null;
 	}
 
 	private static void printInventory(){
@@ -179,6 +196,28 @@ public class CLIScreen {
 			System.out.print(i + " - ");
 			System.out.println(inventory.get(i));
 		}
+	}
+
+	private static String itemScreen(int n){
+		char option;
+		do {
+			printItem(n);
+			System.out.println("E - Use | Q - Back");
+			System.out.print("Input your command: ");
+			option = CLI.getChar();
+			if(option == 'q') inventoryScreen();
+			if(option == 'e'){
+				String temp = Engine.useItem(n);
+				return temp;
+			}
+		} while (option != 'q');
+		return null;
+	}
+
+	private static void printItem(int n){
+		CLI.clear();
+		System.out.println("Item: ");
+		System.out.println(Engine.playerItemInfo(n));
 	}
 
 }

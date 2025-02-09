@@ -14,4 +14,9 @@ public class Bee extends Entity{
         return result;
     }
 
+    @Override
+    public Item drop(int chance){
+        return getInventory().dropItem(chance);
+    }
+
 }

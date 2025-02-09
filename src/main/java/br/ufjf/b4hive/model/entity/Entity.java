@@ -1,10 +1,10 @@
 package br.ufjf.b4hive.model.entity;
 
 import br.ufjf.b4hive.model.field.Coordinate;
+import br.ufjf.b4hive.model.inventory.Armor;
 import br.ufjf.b4hive.model.inventory.Inventory;
 import br.ufjf.b4hive.model.inventory.Item;
 import br.ufjf.b4hive.model.inventory.Weapon;
-
 
 public abstract class Entity {
 
@@ -27,30 +27,40 @@ public abstract class Entity {
 	public int getID(){
 		return this.id;
 	}
+
 	public String getName(){
 		return this.name;
 	}
+
 	public int getMaxHP(){
-		return 10; // add the HP modifiers like armor
+		if (this.inventory.getBody() instanceof Armor armor)
+			return 10 + armor.getValue();
+		else
+			return 10;
 	}
+
 	public int getCurrentHP(){
 		return getMaxHP() * (int) this.hpCurrent;
 	}
+
 	public Coordinate getPosition(){
 		return this.position;
 	}
+
 	public void setPosition(Coordinate position){
 		this.position = position;
 	}
+
 	public Inventory getInventory(){
 		return this.inventory;
 	}
+
 	public int atk(){
 		int a = 1;
 		if (this.inventory.getHand() instanceof Weapon weapon){
 			a += weapon.getValue();
 		}
-		return a; // add the atk modifiers like weapons
+		return a;
 	}
 
 	public String takeDamage(int amount){
@@ -65,13 +75,16 @@ public abstract class Entity {
 		}
 		return result;
 	}
+
 	public boolean alive(){
 		return this.hpCurrent > 0;
 	}
-	public Item calcDrop(){
-		if(Math.random() < 0.5)
+
+	public Item drop(int index){
+		if(index < 50)
 	        return new Item(30, "Item");
 		else
 			return new Item(31, "Meti");
     }
+
 }
