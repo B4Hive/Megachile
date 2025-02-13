@@ -9,9 +9,9 @@ import br.ufjf.b4hive.model.entity.Entity;
 import br.ufjf.b4hive.model.field.Coordinate;
 import br.ufjf.b4hive.model.field.FieldMap;
 import br.ufjf.b4hive.model.field.Tile;
+import br.ufjf.b4hive.model.inventory.Armor;
 import br.ufjf.b4hive.model.inventory.Item;
 import br.ufjf.b4hive.model.inventory.Weapon;
-import br.ufjf.b4hive.model.inventory.Armor;
 
 public class Engine {
 

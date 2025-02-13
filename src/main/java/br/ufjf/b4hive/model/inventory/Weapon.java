@@ -2,6 +2,8 @@ package br.ufjf.b4hive.model.inventory;
 
 public class Weapon extends Equipment{
     
+    private Ability ability;
+
     public Weapon(int id, String name, int value) {
         super(id, name, value);
     }

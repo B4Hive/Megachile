@@ -9,6 +9,11 @@ public class Dictionary {
 
     static void init(){
         // i'll... improve this... i swear... trust me...
+        // ID starts with 0 = map tile
+        // ID starts with 1 = moveable entity
+        // ID starts with 2 = unmoveable entity
+        // ID starts with 3 = item
+        // ID starts with 4 = equipment
         IDtoIcon.put(00, ',');
         IDtoIcon.put(01, '#');
         IDtoIcon.put(10, '@');
