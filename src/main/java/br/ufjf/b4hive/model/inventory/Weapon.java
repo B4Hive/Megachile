@@ -11,5 +11,10 @@ public class Weapon extends Equipment{
         // use weapon == use weapon's ability
         return null;
     }
+
+    @Override
+    public String getInfo(){
+        return super.getInfo() + " - Damage: " + getValue();
+    }
     
 }

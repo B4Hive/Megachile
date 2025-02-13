@@ -10,6 +10,8 @@ import br.ufjf.b4hive.model.field.Coordinate;
 import br.ufjf.b4hive.model.field.FieldMap;
 import br.ufjf.b4hive.model.field.Tile;
 import br.ufjf.b4hive.model.inventory.Item;
+import br.ufjf.b4hive.model.inventory.Weapon;
+import br.ufjf.b4hive.model.inventory.Armor;
 
 public class Engine {
 
@@ -20,7 +22,7 @@ public class Engine {
     public static void newGame(){
         running = true;
         field = new FieldMap();
-        player = new Bee(10, "@Player");
+        player = new Bee(10, "@Player", new Weapon(40, "Weapon", 4), new Armor(41, "Armor", 10));
         player.setPosition(new Coordinate(0, 0));
         field.getTile(player.getPosition()).setEntity(player);
     }
@@ -148,5 +150,17 @@ public class Engine {
 
         if(player.getInventory().getItem(n) == null) return null;
         return player.useItem(n);
+    }
+
+    public static String dropItem(int n){
+        if(!running) System.exit(0);
+
+        if(player.getInventory().getItem(n) == null) return null;
+        Coordinate pos = player.getPosition();
+        if(field.getTile(pos).getItem() != null) return "Can't drop item, there is already an item in the tile.";
+        Item item = player.drop(n);
+        String temp = player.getName() + " dropped " + item.getName() + ".";
+        field.getTile(pos).setItem(item);
+        return temp;
     }
 }

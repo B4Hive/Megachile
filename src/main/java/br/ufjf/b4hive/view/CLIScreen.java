@@ -222,12 +222,16 @@ public class CLIScreen {
 		char option;
 		do {
 			printItem(n);
-			System.out.println("E - Use | Q - Back");
+			System.out.println("Q - Back | E - Use | Z - Drop");
 			System.out.print("Input your command: ");
 			option = CLI.getChar();
 			if(option == 'q') inventoryScreen();
 			if(option == 'e'){
 				String temp = Engine.useItem(n);
+				return temp;
+			}
+			if(option == 'z'){
+				String temp = Engine.dropItem(n);
 				return temp;
 			}
 		} while (option != 'q');

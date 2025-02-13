@@ -1,11 +1,17 @@
 package br.ufjf.b4hive.model.entity;
 
 import br.ufjf.b4hive.model.inventory.Item;
+import br.ufjf.b4hive.model.inventory.Weapon;
+import br.ufjf.b4hive.model.inventory.Armor;
 
 public class Bee extends Entity{
 
     public Bee(int id, String name) {
         super(id, name);
+    }
+
+    public Bee(int id, String name, Weapon weapon, Armor armor){
+        super(id, name, weapon, armor);
     }
 
     public String takeItem(Item item){

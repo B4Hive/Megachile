@@ -24,6 +24,17 @@ public abstract class Entity {
 		//this.effects = new ArrayList<>();
 	}
 
+	public Entity(int id, String name, Weapon weapon, Armor armor) {
+		this.id = id;
+		this.name = name;
+		this.hpCurrent = 1;
+		this.position = null;
+		this.inventory = new Inventory();
+		this.inventory.holdItem(weapon);
+		this.inventory.setBody(armor);
+		//this.effects = new ArrayList<>();
+	}
+
 	public int getID(){
 		return this.id;
 	}

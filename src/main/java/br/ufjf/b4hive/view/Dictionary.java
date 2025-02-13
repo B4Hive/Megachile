@@ -15,6 +15,8 @@ public class Dictionary {
         IDtoIcon.put(20, 'T');
         IDtoIcon.put(30, '9');
         IDtoIcon.put(31, '6');
+        IDtoIcon.put(40, '1');
+        IDtoIcon.put(41, ')');
     }
     static char getIcon(int id){
         return IDtoIcon.get(id);

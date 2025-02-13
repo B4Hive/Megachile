@@ -11,10 +11,14 @@ public class Armor extends Equipment{
         if(father.getBody() == null){
             father.addItem(father.getBody());
             father.setBody(this);
-            return "You equipped the " + this.getName() + "!";
+            return "You equipped the " + this.getName();
         }
         return "You already have an armor equipped!";
     }
 
-}
+    @Override
+    public String getInfo(){
+        return super.getInfo() + " - Defense: " + getValue();
+    }
 
+}
