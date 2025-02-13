@@ -10,6 +10,6 @@
 mvn clean install
 ```
 ### 🚀 Execução
-```
-java -jar target/Megachile-0.2.jar
+```sh
+java -jar target/Megachile-0.2.5.jar
 ```
