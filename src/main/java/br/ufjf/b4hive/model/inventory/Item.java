@@ -48,7 +48,7 @@ public class Item {
         }
     }
 
-    public String use(Inventory father){
+    public String use(Inventory father, int n){
         return "Cannot use this item.";
     }
 }

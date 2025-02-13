@@ -1,8 +1,8 @@
 package br.ufjf.b4hive.model.entity;
 
+import br.ufjf.b4hive.model.inventory.Armor;
 import br.ufjf.b4hive.model.inventory.Item;
 import br.ufjf.b4hive.model.inventory.Weapon;
-import br.ufjf.b4hive.model.inventory.Armor;
 
 public class Bee extends Entity{
 
@@ -26,7 +26,7 @@ public class Bee extends Entity{
     }
 
     public String useItem(int n) {
-        return getInventory().getItem(n).use(getInventory());
+        return getInventory().getItem(n).use(getInventory(), n);
     }
 
 }

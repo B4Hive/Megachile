@@ -82,7 +82,7 @@ public class Inventory {
         }
     }
 
-    public String deleteItem(int index){
+    public String removeItem(int index){
         String result;
         if(getItem(index) == null){
             result = "Item not found in the inventory.";

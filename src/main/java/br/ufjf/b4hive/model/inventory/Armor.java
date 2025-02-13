@@ -7,10 +7,11 @@ public class Armor extends Equipment{
     }
 
     @Override
-    public String use(Inventory father) {
+    public String use(Inventory father, int n) {
         if(father.getBody() == null){
             father.addItem(father.getBody());
             father.setBody(this);
+            father.removeItem(n);
             return "You equipped the " + this.getName();
         }
         return "You already have an armor equipped!";

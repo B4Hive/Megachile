@@ -7,9 +7,14 @@ public class Weapon extends Equipment{
     }
 
     @Override
-    public String use(Inventory father) {
-        // use weapon == use weapon's ability
-        return null;
+    public String use(Inventory inventory, int n) {
+        if(inventory.getHand() == this){
+            // use weapon == use weapon's ability
+            return "NYI";
+        }
+        inventory.holdItem(this);
+        inventory.removeItem(n);
+        return "You equipped the " + this.getName();
     }
 
     @Override
