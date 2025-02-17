@@ -12,7 +12,6 @@ public class Weapon extends Equipment{
     @Override
     public String use(Inventory inventory, int n) {
         if(inventory.getHand() == this){
-            // use weapon == use weapon's ability
             return "Already equipped.";
         }
         inventory.holdItem(this);
@@ -23,6 +22,10 @@ public class Weapon extends Equipment{
     @Override
     public String getInfo(){
         return super.getInfo() + " - Damage: " + getValue() + " - " + ability.getInfo();
+    }
+
+    public Ability getAbility(){
+        return ability;
     }
     
     public Effect useAbility(Inventory inventory){

@@ -9,6 +9,7 @@ import br.ufjf.b4hive.model.entity.Entity;
 import br.ufjf.b4hive.model.field.Coordinate;
 import br.ufjf.b4hive.model.field.FieldMap;
 import br.ufjf.b4hive.model.field.Tile;
+import br.ufjf.b4hive.model.inventory.Effect;
 import br.ufjf.b4hive.model.inventory.Item;
 import br.ufjf.b4hive.model.inventory.Weapon;
 
@@ -18,6 +19,7 @@ public class Engine {
     private static FieldMap field;
     private static Bee player;
     private static List<Entity> effectTargets;
+    //private static List<Entity> entities; //vou precisar dessa pra cooldown management, vou provavelmente usar a mesma também pra effect management
     
     public static void newGame(){
         running = true;
@@ -79,6 +81,7 @@ public class Engine {
         if(tile.getItem() != null){
             return tile.getItem().getInfo();
         }
+        // incluir tipo de tile depois se possível
         return "Empty";
     }
 
@@ -137,10 +140,10 @@ public class Engine {
         if(e != null){
             if(player.getInventory().getHand() instanceof Weapon weapon){
                 effectTargets.add(e);
-                return e.addEffect(weapon.useAbility(player.getInventory()));
-            } else{
-                return "No weapon equipped.";
-            }
+                Effect temp = weapon.useAbility(player.getInventory());
+                if(temp != null) return e.addEffect(temp);
+                return "Ability on cooldown.";
+            } else return "No weapon equipped.";
         }
         return null;
     }
@@ -205,22 +208,23 @@ public class Engine {
         if(!running) System.exit(0);
 
         List<String> effects = new ArrayList<>();
-        List<Integer> entitiesForRemoval = new ArrayList<>();
+        List<Integer> targetsForRemoval = new ArrayList<>();
         for(Entity e : effectTargets){
             List <String> temp;
             temp = e.tickEffects(e);
             effects.addAll(temp);
             if(e.getEffects().isEmpty()){
-                entitiesForRemoval.add(effectTargets.indexOf(e));
+                targetsForRemoval.add(effectTargets.indexOf(e));
             }
             if(!e.alive()){
-                entitiesForRemoval.add(effectTargets.indexOf(e));
+                targetsForRemoval.add(effectTargets.indexOf(e));
                 effects.add(e.getName() + " died.");
             }
         }
-        for(int i : entitiesForRemoval){
+        for(int i : targetsForRemoval){
             effectTargets.remove(i);
         }
+
         return effects;
     }
 

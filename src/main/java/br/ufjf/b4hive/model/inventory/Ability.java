@@ -24,7 +24,7 @@ public class Ability {
         this.cooldown = this.cooldownMax;
     }
 
-    public void lowerCooldown() {
+    public void tickCooldown() {
         this.cooldown--;
     }
 

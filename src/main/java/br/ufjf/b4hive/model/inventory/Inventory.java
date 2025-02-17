@@ -22,13 +22,14 @@ public class Inventory {
 
     public void holdItem(Item item){
         if (this.hand == null){
-            hand = item;
+            this.hand = item;
             this.items.remove(item);
         }
         else {
-            this.items.add(hand);
-            hand = item;
+            Item temp = this.hand;
+            this.hand = item;
             this.items.remove(item);
+            this.items.add(temp);
         }
     }
 
@@ -99,6 +100,13 @@ public class Inventory {
 
     private void organize(){
         items.sort((item1, item2) -> item1.getName().compareToIgnoreCase(item2.getName()));
+    }
+
+    public void tickCooldown() {
+        for (int i = 0; i < this.getSize(); i++) {
+            if (this.getItem(i) instanceof Weapon weapon)
+                weapon.getAbility().tickCooldown();
+        }
     }
 
 }

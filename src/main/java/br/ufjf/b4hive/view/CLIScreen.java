@@ -288,7 +288,7 @@ public class CLIScreen {
 				case 'e' -> {
 					int xField = x - (size/2);
 					int yField = y - (size/2);
-					String temp = Engine.lookInto(xField, yField); // look at tile
+					String temp = Engine.lookInto(xField, yField);
 					log.add(temp);
 				}
 				case 'z' -> {
