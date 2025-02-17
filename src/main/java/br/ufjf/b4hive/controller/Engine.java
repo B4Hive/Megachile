@@ -18,8 +18,7 @@ public class Engine {
     private static boolean running = false;
     private static FieldMap field;
     private static Bee player;
-    private static List<Entity> effectTargets;
-    //private static List<Entity> entities; //vou precisar dessa pra cooldown management, vou provavelmente usar a mesma também pra effect management
+    private static List<Entity> entities; //vou precisar dessa pra cooldown management, vou provavelmente usar a mesma também pra effect management
     
     public static void newGame(){
         running = true;
@@ -29,7 +28,8 @@ public class Engine {
         player.getInventory().addItem(DataBank.getRandItem());
         player.setPosition(new Coordinate(0, 0));
         field.getTile(player.getPosition()).setEntity(player);
-        effectTargets = new ArrayList<>();
+        entities = new ArrayList<>();
+        entities.add(player);
     }
 
     public static void endGame(){
@@ -55,6 +55,7 @@ public class Engine {
                         Item it = e.drop((int) (Math.random() * 100));
                         field.getTile(x, y).setItem(it);
                         field.getTile(x, y).setEntity(null);
+                        entities.remove(e);
                     }
                 }
                 visibleMap[i][j] = field.getTile(x, y).view();
@@ -94,6 +95,7 @@ public class Engine {
         Tile tile;
         if(e < 1){
             en = DataBank.getRandEntity();
+            entities.add(en);
         }
         if(t > 9){
             tile = new Tile(1);
@@ -139,7 +141,6 @@ public class Engine {
         Entity e = field.getTile(x, y).getEntity();
         if(e != null){
             if(player.getInventory().getHand() instanceof Weapon weapon){
-                effectTargets.add(e);
                 Effect temp = weapon.useAbility(player.getInventory());
                 if(temp != null) return e.addEffect(temp);
                 return "Ability on cooldown.";
@@ -204,27 +205,15 @@ public class Engine {
         return temp;
     }
 
-    public static List<String> tickEffects(){
+    public static List<String> tick(){
         if(!running) System.exit(0);
 
         List<String> effects = new ArrayList<>();
-        List<Integer> targetsForRemoval = new ArrayList<>();
-        for(Entity e : effectTargets){
+        for(Entity e : entities){
             List <String> temp;
             temp = e.tickEffects(e);
             effects.addAll(temp);
-            if(e.getEffects().isEmpty()){
-                targetsForRemoval.add(effectTargets.indexOf(e));
-            }
-            if(!e.alive()){
-                targetsForRemoval.add(effectTargets.indexOf(e));
-                effects.add(e.getName() + " died.");
-            }
         }
-        for(int i : targetsForRemoval){
-            effectTargets.remove(i);
-        }
-
         return effects;
     }
 

@@ -25,7 +25,7 @@ public class Ability {
     }
 
     public void tickCooldown() {
-        this.cooldown--;
+        if (this.cooldown > 0) this.cooldown--;
     }
 
     public Effect getEffect() {

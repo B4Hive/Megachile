@@ -50,20 +50,24 @@ public class DataBank {
     }
 
     public static Entity getRandEntity(){
+        //tem que criar uma nova entidade aleatória ao invés de pegar do banco
         return entities.get((int)(Math.random() * entities.size()));
     }
 
     public static Item getRandItem(){
+        //tem que criar uma cópia do item do banco
         return items.get((int)(Math.random() * items.size()));
     }
 
     public static Item getItem(int id){
+        //tem que criar uma cópia do item do banco
         for(Item i : items){
             if(i.getID() == id) return i;
         }
         return null;
     }
     public static Effect getRandEffect(){
+        //tem que criar uma cópia do efeito do banco
         return effects.get((int)(Math.random() * effects.size()));
     }
 

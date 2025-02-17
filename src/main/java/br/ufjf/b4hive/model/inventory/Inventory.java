@@ -103,10 +103,8 @@ public class Inventory {
     }
 
     public void tickCooldown() {
-        for (int i = 0; i < this.getSize(); i++) {
-            if (this.getItem(i) instanceof Weapon weapon)
-                weapon.getAbility().tickCooldown();
-        }
+        if (this.getHand() instanceof Weapon weapon)
+            weapon.getAbility().tickCooldown();
     }
 
 }

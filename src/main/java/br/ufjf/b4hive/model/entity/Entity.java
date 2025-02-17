@@ -97,7 +97,7 @@ public abstract class Entity {
 		for (int i : effectsForRemoval){
 			this.effects.remove(i);
 		}
-		//colocar tick dos cooldowns aqui também ou criar um efeito cooldown
+		this.getInventory().tickCooldown();
 		return result;
 	}
 

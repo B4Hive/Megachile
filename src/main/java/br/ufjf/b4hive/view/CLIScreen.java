@@ -140,7 +140,7 @@ public class CLIScreen {
 					
 				}
 			}
-			log.addAll(Engine.tickEffects());
+			log.addAll(Engine.tick());
 			// IA
 		} while (option != 'q');
 	}

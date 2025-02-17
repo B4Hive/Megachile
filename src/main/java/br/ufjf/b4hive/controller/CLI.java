@@ -7,9 +7,9 @@ public class CLI {
     private static final Scanner scanner = new Scanner(System.in);
 
     @SuppressWarnings("UseSpecificCatch")
-    public static void clear() {
-        String os = System.getProperty("os.name").toLowerCase();
-        try {
+    public static void clear() { 
+         String os = System.getProperty("os.name").toLowerCase();
+         try {
             if (os.contains("win")) {
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
             } else {
