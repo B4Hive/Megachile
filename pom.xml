@@ -6,7 +6,7 @@
 
     <groupId>br.ufjf.b4hive</groupId>
     <artifactId>Megachile</artifactId>
-    <version>0.2.5</version>
+    <version>0.3</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
