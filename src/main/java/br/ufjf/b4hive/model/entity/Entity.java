@@ -1,7 +1,11 @@
 package br.ufjf.b4hive.model.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.ufjf.b4hive.model.field.Coordinate;
 import br.ufjf.b4hive.model.inventory.Armor;
+import br.ufjf.b4hive.model.inventory.Effect;
 import br.ufjf.b4hive.model.inventory.Inventory;
 import br.ufjf.b4hive.model.inventory.Item;
 import br.ufjf.b4hive.model.inventory.Weapon;
@@ -13,7 +17,7 @@ public abstract class Entity {
 	private float hpCurrent;
 	private Coordinate position;
 	private final Inventory inventory;
-	//private List<Effect> effects;
+	private final List<Effect> effects;
 
 	public Entity(int id, String name) {
 		this.id = id;
@@ -21,7 +25,7 @@ public abstract class Entity {
 		this.hpCurrent = 1;
 		this.position = null;
 		this.inventory = new Inventory();
-		//this.effects = new ArrayList<>();
+		this.effects = new ArrayList<>();
 	}
 
 	public Entity(int id, String name, Weapon weapon, Armor armor) {
@@ -32,7 +36,7 @@ public abstract class Entity {
 		this.inventory = new Inventory();
 		this.inventory.holdItem(weapon);
 		this.inventory.setBody(armor);
-		//this.effects = new ArrayList<>();
+		this.effects = new ArrayList<>();
 	}
 
 	public int getID(){
@@ -58,12 +62,25 @@ public abstract class Entity {
 		return this.position;
 	}
 
+	public String getInfo(){
+		return this.name + " - HP: " + getCurrentHP() + "/" + getMaxHP();
+	}
+
 	public void setPosition(Coordinate position){
 		this.position = position;
 	}
 
 	public Inventory getInventory(){
 		return this.inventory;
+	}
+
+	public List<Effect> getEffects(){
+		return this.effects;
+	}
+
+	public String addEffect(Effect effect){
+		this.effects.add(effect);
+		return this.name + " got affected by " + effect.getID() + ".";
 	}
 
 	public int atk(){

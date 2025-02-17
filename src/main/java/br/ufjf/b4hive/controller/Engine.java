@@ -64,6 +64,21 @@ public class Engine {
         return visibleMap;
     }
 
+    public static String lookInto(int x, int y){
+        if(!running) System.exit(0);
+
+        x = player.getPosition().x() + x;
+        y = player.getPosition().y() - y;
+        Tile tile = field.getTile(x, y);
+        if(tile.getEntity() != null){
+            return tile.getEntity().getInfo();
+        }
+        if(tile.getItem() != null){
+            return tile.getItem().getInfo();
+        }
+        return "Empty";
+    }
+
     public static Tile generateTile(){
         if(!running) System.exit(0);
 
@@ -107,6 +122,20 @@ public class Engine {
         }
         if (!field.getTile(newPos).getEntity().equals(e))
             return e.getName() + " attacks, " + field.getTile(newPos).getEntity().takeDamage(e.atk());
+        return null;
+    }
+
+    public static String attack(int x, int y){
+        if(!running) System.exit(0);
+
+        x = player.getPosition().x() + x;
+        y = player.getPosition().y() - y;
+        Entity e = field.getTile(x, y).getEntity();
+        if(e != null){
+            if(player.getInventory().getHand() instanceof Weapon weapon){
+                return e.addEffect(weapon.useAbility(player.getInventory()));
+            }
+        }
         return null;
     }
 
@@ -163,4 +192,5 @@ public class Engine {
         field.getTile(pos).setItem(item);
         return temp;
     }
+
 }

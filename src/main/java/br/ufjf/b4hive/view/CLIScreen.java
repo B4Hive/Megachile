@@ -101,11 +101,11 @@ public class CLIScreen {
 		List<String> log = new ArrayList<>();
 		char option;
 		do {
-			log.add("Input your command: ");
 			updateVisibleMap();
 			printMap();
 			printBar();
-			System.out.println("WASD - Move | C - Inventory | E - Take Item | Q - Quit");
+			System.out.println("WASD - Move | C - Inventory | E - Take Item | X - Look | Q - Quit");
+			log.add("Input your command: ");
 			printLog(log);
 			option = CLI.getChar();
 			switch (option) {
@@ -124,6 +124,9 @@ public class CLIScreen {
 				case 'e' -> {
 					String temp = Engine.takeItem();
 					log.add(temp);
+				}
+				case 'x' -> {
+					lookScreen();
 				}
 				default -> {
 					
@@ -242,6 +245,84 @@ public class CLIScreen {
 		CLI.clear();
 		System.out.println("Item: ");
 		System.out.println(Engine.playerItemInfo(n));
+	}
+
+	private static void lookScreen(){
+		List<String> log = new ArrayList<>();
+		int x = size/2;
+		int y = size/2;
+		char option;
+		do {
+			updateVisibleMap();
+			printLookScreen(x, y);
+			printBar();
+			System.out.println("WASD - Move | E - Info | Z - Skill | Q - Back");
+			log.add("Input your command: ");
+			printLog(log);
+			option = CLI.getChar();
+			switch (option) {
+				case 'q' -> {
+					gameScreen();
+				}
+				case 'w', 'a', 's', 'd' -> {
+					switch (option) {
+						case 'w' -> {
+							if(y > 0) y--;
+						}
+						case 'a' -> {
+							if(x > 0) x--;
+						}
+						case 's' -> {
+							if(y < size - 1) y++;
+						}
+						case 'd' -> {
+							if(x < size - 1) x++;
+						}
+					}
+				}
+				case 'e' -> {
+					int xField = x - (size/2);
+					int yField = y - (size/2);
+					String temp = Engine.lookInto(xField, yField); // look at tile
+					log.add(temp);
+				}
+				case 'z' -> {
+					// if weapon in hand, use skill
+				}
+				default -> {
+					
+				}
+			}
+			// IA
+		} while (option != 'q');
+	}
+
+	private static void printLookScreen(int x, int y){
+		CLI.clear();
+
+		System.out.print(" ╔═");
+        for (int i = 0; i < size; i++) {
+            System.out.print("═══");
+        }
+        System.out.println("═╗ ");
+		
+		for(int j = 0; j < size; j++){
+			System.out.print(" ║ ");
+			for(int i = 0; i < size; i++){
+				if (x != i || y != j) System.out.print(" ");
+				else System.out.print("[");
+				System.out.print(Dictionary.getIcon(visibleMap[i][j]));
+				if (x != i || y != j) System.out.print(" ");
+				else System.out.print("]");
+			}
+			System.out.println(" ║ ");
+		}
+
+		System.out.print(" ╠═");
+        for (int i = 0; i < size; i++) {
+            System.out.print("═══");
+        }
+        System.out.println("═╣ ");
 	}
 
 }

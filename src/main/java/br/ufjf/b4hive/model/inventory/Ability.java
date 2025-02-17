@@ -33,8 +33,14 @@ public class Ability {
     }
 
     public String getInfo(){
-        return "Cooldown: " + this.cooldown + "/" + this.cooldownMax + " - "; // + effect.getInfo();
+        return effect.getInfo() + "Cooldown: " + this.cooldown + "/" + this.cooldownMax;
     }
 
-    
+    public Effect use(){
+        if(this.cooldown <= 0){
+            this.cooldown = cooldownMax;
+            return effect;
+        }
+        return null;
+    }
 }
