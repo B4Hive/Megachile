@@ -3,12 +3,14 @@ package br.ufjf.b4hive.model.inventory;
 public class Effect {
 
     final int id;
+    final String name;
     final float multiplier;
     int value;
     int duration;
 
-    public Effect(int id, float multiplier, int duration) {
+    public Effect(int id, String name, float multiplier, int duration) {
         this.id = id;
+        this.name = name;
         this.multiplier = multiplier;
         this.duration = duration;
     }
@@ -46,7 +48,7 @@ public class Effect {
     }
 
     public String getInfo() {
-        return "Effect: " + this.id //won't be ID
+        return "Effect: " + this.name //won't be ID
                 + "; Multiplier: " + this.multiplier + "; Duration: " + this.duration;
     }
 }

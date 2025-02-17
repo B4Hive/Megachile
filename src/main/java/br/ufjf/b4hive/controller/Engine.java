@@ -3,13 +3,12 @@ package br.ufjf.b4hive.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.ufjf.b4hive.model.DataBank;
 import br.ufjf.b4hive.model.entity.Bee;
-import br.ufjf.b4hive.model.entity.Breakable;
 import br.ufjf.b4hive.model.entity.Entity;
 import br.ufjf.b4hive.model.field.Coordinate;
 import br.ufjf.b4hive.model.field.FieldMap;
 import br.ufjf.b4hive.model.field.Tile;
-import br.ufjf.b4hive.model.inventory.Armor;
 import br.ufjf.b4hive.model.inventory.Item;
 import br.ufjf.b4hive.model.inventory.Weapon;
 
@@ -21,8 +20,10 @@ public class Engine {
     
     public static void newGame(){
         running = true;
+        DataBank.initData();
         field = new FieldMap();
-        player = new Bee(10, "@Player", new Weapon(40, "Weapon", 4), new Armor(41, "Armor", 10));
+        player = new Bee(10, "@Player");
+        player.getInventory().addItem(DataBank.getRandItem());
         player.setPosition(new Coordinate(0, 0));
         field.getTile(player.getPosition()).setEntity(player);
     }
@@ -87,7 +88,7 @@ public class Engine {
         Entity en = null;
         Tile tile;
         if(e < 1){
-            en = new Breakable(20, "Tree");
+            en = DataBank.getRandEntity();
         }
         if(t > 9){
             tile = new Tile(1);
@@ -141,6 +142,8 @@ public class Engine {
 
     public static String takeItem(){
         if(!running) System.exit(0);
+
+        if(player.getInventory().isFull()) return "Inventory is full.";
 
         Coordinate pos = player.getPosition();
         Tile tile = field.getTile(pos);

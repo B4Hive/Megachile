@@ -4,9 +4,9 @@ public class Weapon extends Equipment{
     
     private final Ability ability;
 
-    public Weapon(int id, String name, int value) {
+    public Weapon(int id, String name, int value, Ability ability) {
         super(id, name, value);
-        this.ability = new Ability(5, new Effect(111, 1.5f, 3));
+        this.ability = ability;
     }
 
     @Override

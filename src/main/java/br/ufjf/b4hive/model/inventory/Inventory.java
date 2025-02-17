@@ -71,6 +71,10 @@ public class Inventory {
         return items.size() + 2;
     }
 
+    public boolean isFull(){
+        return getSize() >= 10;
+    }
+
     public String addItem(Item item){
         // add max size condition (or switch to array)
         if(item == null){
