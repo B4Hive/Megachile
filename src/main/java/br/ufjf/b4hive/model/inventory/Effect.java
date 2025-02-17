@@ -1,12 +1,14 @@
 package br.ufjf.b4hive.model.inventory;
 
+import br.ufjf.b4hive.model.entity.Entity;
+
 public class Effect {
 
-    final int id;
-    final String name;
-    final float multiplier;
-    int value;
-    int duration;
+    private final int id;
+    private final String name;
+    private final float multiplier;
+    private int value;
+    private int duration;
 
     public Effect(int id, String name, float multiplier, int duration) {
         this.id = id;
@@ -17,6 +19,10 @@ public class Effect {
 
     public int getID() {
         return this.id;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public float getMultiplier() {
@@ -31,8 +37,8 @@ public class Effect {
         return this.duration;
     }
 
-    public void setValue(int value) {
-        this.value = value;
+    public void setValue(int status) {
+        this.value = (int) (this.multiplier * status);
     }
 
     public void setDuration(int duration) {
@@ -48,7 +54,22 @@ public class Effect {
     }
 
     public String getInfo() {
-        return "Effect: " + this.name //won't be ID
-                + "; Multiplier: " + this.multiplier + "; Duration: " + this.duration;
+        return "Effect: [" + this.name //won't be ID
+                + "; Multiplier: " + this.multiplier + "; Duration: " + this.duration + "]";
     }
+
+    public String apply(Entity target) {
+        int i = this.getID();
+        String temp = null;
+        if (i == 51) {
+            temp = target.takeDamage(value);
+            this.tick();
+        }
+        if (i == 52) {
+            temp = target.takeDamage(-value);
+            this.tick();
+        }
+        return temp;
+    }
+
 }

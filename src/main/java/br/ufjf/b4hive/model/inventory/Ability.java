@@ -8,20 +8,20 @@ public class Ability {
 
     public Ability(int cooldownMax, Effect effect) {
         this.cooldownMax = cooldownMax;
-        this.cooldown = cooldownMax;
+        this.cooldown = 0;
         this.effect = effect;
     }
 
     public int getCooldownMax() {
-        return cooldownMax;
+        return this.cooldownMax;
     }
 
     public int getCooldown() {
-        return cooldown;
+        return this.cooldown;
     }
 
     public void resetCooldown() {
-        this.cooldown = cooldownMax;
+        this.cooldown = this.cooldownMax;
     }
 
     public void lowerCooldown() {
@@ -29,17 +29,18 @@ public class Ability {
     }
 
     public Effect getEffect() {
-        return effect;
+        return this.effect;
     }
 
     public String getInfo(){
-        return effect.getInfo() + "Cooldown: " + this.cooldown + "/" + this.cooldownMax;
+        return effect.getInfo() + " - Cooldown: " + this.cooldown + "/" + this.cooldownMax;
     }
 
-    public Effect use(){
+    public Effect use(int status){
         if(this.cooldown <= 0){
-            this.cooldown = cooldownMax;
-            return effect;
+            this.resetCooldown();
+            this.effect.setValue(status);
+            return this.effect;
         }
         return null;
     }

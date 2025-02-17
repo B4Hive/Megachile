@@ -99,39 +99,48 @@ public class CLIScreen {
 
 	private static void gameScreen() {
 		List<String> log = new ArrayList<>();
+		String temp;
 		char option;
 		do {
 			updateVisibleMap();
 			printMap();
 			printBar();
 			System.out.println("WASD - Move | C - Inventory | E - Take Item | X - Look | Q - Quit");
-			log.add("Input your command: ");
+			temp = "Input your command: ";
+			log.add(temp);
 			printLog(log);
 			option = CLI.getChar();
 			switch (option) {
 				case 'q' -> {
 					Engine.endGame();
-					mainMenuScreen();
+					return;
 				}
 				case 'w', 'a', 's', 'd' -> {
-					String temp = Engine.movePlayer(option);
+					temp = Engine.movePlayer(option);
 					log.add(temp);
 				}
 				case 'c' -> {
-					String temp = inventoryScreen();
+					temp = inventoryScreen();
 					log.add(temp);
 				}
 				case 'e' -> {
-					String temp = Engine.takeItem();
+					temp = Engine.takeItem();
 					log.add(temp);
 				}
 				case 'x' -> {
-					lookScreen();
+					temp = lookScreen();
+					log.add(temp);
+				}
+				case 't' -> {
+					System.out.print("Terminal: ");
+					temp = CLI.getString();
+					log.add(Engine.terminal(temp));
 				}
 				default -> {
 					
 				}
 			}
+			log.addAll(Engine.tickEffects());
 			// IA
 		} while (option != 'q');
 	}
@@ -195,7 +204,6 @@ public class CLIScreen {
 			printInventory();
 			System.out.print("Input your command: ");
 			option = CLI.getChar();
-			if(option == 'q') gameScreen();
 
 			int n;
 			try {
@@ -228,7 +236,7 @@ public class CLIScreen {
 			System.out.println("Q - Back | E - Use | Z - Drop");
 			System.out.print("Input your command: ");
 			option = CLI.getChar();
-			if(option == 'q') inventoryScreen();
+
 			if(option == 'e'){
 				String temp = Engine.useItem(n);
 				return temp;
@@ -237,7 +245,7 @@ public class CLIScreen {
 				String temp = Engine.dropItem(n);
 				return temp;
 			}
-		} while (option != 'q');
+		} while (option != 'q' && option != 'z');
 		return null;
 	}
 
@@ -247,7 +255,7 @@ public class CLIScreen {
 		System.out.println(Engine.playerItemInfo(n));
 	}
 
-	private static void lookScreen(){
+	private static String lookScreen(){
 		List<String> log = new ArrayList<>();
 		int x = size/2;
 		int y = size/2;
@@ -261,9 +269,6 @@ public class CLIScreen {
 			printLog(log);
 			option = CLI.getChar();
 			switch (option) {
-				case 'q' -> {
-					gameScreen();
-				}
 				case 'w', 'a', 's', 'd' -> {
 					switch (option) {
 						case 'w' -> {
@@ -287,14 +292,18 @@ public class CLIScreen {
 					log.add(temp);
 				}
 				case 'z' -> {
-					// if weapon in hand, use skill
+					int xField = x - (size/2);
+					int yField = y - (size/2);
+					String temp = Engine.attack(xField, yField);
+					log.add(temp);
+					return temp;
 				}
 				default -> {
 					
 				}
 			}
-			// IA
 		} while (option != 'q');
+		return null;
 	}
 
 	private static void printLookScreen(int x, int y){

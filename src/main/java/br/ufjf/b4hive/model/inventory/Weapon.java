@@ -22,12 +22,12 @@ public class Weapon extends Equipment{
 
     @Override
     public String getInfo(){
-        return super.getInfo() + " - Damage: " + getValue();
+        return super.getInfo() + " - Damage: " + getValue() + " - " + ability.getInfo();
     }
     
     public Effect useAbility(Inventory inventory){
         if(inventory.getHand() == this){
-            return ability.use();
+            return ability.use(getValue());
         }
         return null;
     }

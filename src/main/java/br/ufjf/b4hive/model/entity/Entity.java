@@ -79,8 +79,26 @@ public abstract class Entity {
 	}
 
 	public String addEffect(Effect effect){
+		if (effect == null) return "Invalid effect.";
 		this.effects.add(effect);
-		return this.name + " got affected by " + effect.getID() + ".";
+		return this.name + " got affected by " + effect.getName() + ".";
+	}
+
+	public List<String> tickEffects(Entity target){
+		List<String> result = new ArrayList<>();
+		List<Integer> effectsForRemoval = new ArrayList<>();
+		for (Effect effect : this.effects){
+			result.add(effect.apply(target));
+			if (effect.isOver()){
+				result.add(this.name + " is no longer affected by " + effect.getName() + ".");
+				effectsForRemoval.add(this.effects.indexOf(effect));
+			}
+		}
+		for (int i : effectsForRemoval){
+			this.effects.remove(i);
+		}
+		//colocar tick dos cooldowns aqui também ou criar um efeito cooldown
+		return result;
 	}
 
 	public int atk(){
@@ -92,9 +110,14 @@ public abstract class Entity {
 	}
 
 	public String takeDamage(int amount){
-		String result = this.name + " took " + amount + " damage. ";
+		String result;
 		float hp = getMaxHP() * this.hpCurrent;
 		hp -= amount;
+		if (amount > 0){
+			result = this.name + " took " + amount + " damage. ";
+		} else {
+			result = this.name + " healed " + amount + " HP. ";
+		}
 		this.hpCurrent = hp / getMaxHP();
 		int hpPercent = (int) (this.hpCurrent * 100);
 		result += hpPercent + "% HP remaining.";

@@ -21,15 +21,23 @@ public class CLI {
     }
 
     public static char getChar() {
-        char c;
+        char c = ' ';
         String temp = scanner.next();
-        scanner.nextLine();
+        try {
+            scanner.nextLine();
+        } catch (Exception e) {
+            return c;
+        }
         if (temp.length() < 1) {
             c = ' ';
         } else {
             c = temp.toLowerCase().charAt(0);
         }
         return c;
+    }
+
+    public static String getString() {
+        return scanner.nextLine().trim().toLowerCase();
     }
 
 }

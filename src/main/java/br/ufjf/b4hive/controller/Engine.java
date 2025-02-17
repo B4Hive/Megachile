@@ -17,6 +17,7 @@ public class Engine {
     private static boolean running = false;
     private static FieldMap field;
     private static Bee player;
+    private static List<Entity> effectTargets;
     
     public static void newGame(){
         running = true;
@@ -26,6 +27,7 @@ public class Engine {
         player.getInventory().addItem(DataBank.getRandItem());
         player.setPosition(new Coordinate(0, 0));
         field.getTile(player.getPosition()).setEntity(player);
+        effectTargets = new ArrayList<>();
     }
 
     public static void endGame(){
@@ -134,7 +136,10 @@ public class Engine {
         Entity e = field.getTile(x, y).getEntity();
         if(e != null){
             if(player.getInventory().getHand() instanceof Weapon weapon){
+                effectTargets.add(e);
                 return e.addEffect(weapon.useAbility(player.getInventory()));
+            } else{
+                return "No weapon equipped.";
             }
         }
         return null;
@@ -194,6 +199,44 @@ public class Engine {
         String temp = player.getName() + " dropped " + item.getName() + ".";
         field.getTile(pos).setItem(item);
         return temp;
+    }
+
+    public static List<String> tickEffects(){
+        if(!running) System.exit(0);
+
+        List<String> effects = new ArrayList<>();
+        List<Integer> entitiesForRemoval = new ArrayList<>();
+        for(Entity e : effectTargets){
+            List <String> temp;
+            temp = e.tickEffects(e);
+            effects.addAll(temp);
+            if(e.getEffects().isEmpty()){
+                entitiesForRemoval.add(effectTargets.indexOf(e));
+            }
+            if(!e.alive()){
+                entitiesForRemoval.add(effectTargets.indexOf(e));
+                effects.add(e.getName() + " died.");
+            }
+        }
+        for(int i : entitiesForRemoval){
+            effectTargets.remove(i);
+        }
+        return effects;
+    }
+
+    public static String terminal(String command) {
+        if(!running) System.exit(0);
+
+        String[] cmd = command.split(" ");
+        if(cmd[0].equals("additem")){
+            if(cmd.length < 2) return "Invalid command.";
+            int id = Integer.parseInt(cmd[1]);
+            Item item = DataBank.getItem(id);
+            if(item == null) return "Item not found.";
+            player.getInventory().addItem(item);
+            return "Item added to inventory.";
+        }
+        return "Invalid command.";
     }
 
 }
