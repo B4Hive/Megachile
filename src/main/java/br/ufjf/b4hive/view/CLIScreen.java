@@ -108,6 +108,7 @@ public class CLIScreen {
 			System.out.println("WASD - Move | C - Inventory | E - Take Item | X - Look | Q - Quit");
 			temp = "Input your command: ";
 			log.add(temp);
+			temp = null;
 			printLog(log);
 			option = CLI.getChar();
 			switch (option) {
@@ -140,8 +141,7 @@ public class CLIScreen {
 					
 				}
 			}
-			log.addAll(Engine.tick());
-			// IA
+			if (temp != null) log.addAll(Engine.tick());
 		} while (option != 'q');
 	}
 

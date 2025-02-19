@@ -7,7 +7,7 @@
 
 ### ⚙️ Compilação
 ```sh
-mvn clean install
+mvn clean package
 ```
 ### 🚀 Execução
 ```sh

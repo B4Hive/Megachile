@@ -55,7 +55,7 @@ public abstract class Entity {
 	}
 
 	public int getCurrentHP(){
-		return getMaxHP() * (int) this.hpCurrent;
+		return (int)(getMaxHP() * this.hpCurrent);
 	}
 
 	public Coordinate getPosition(){
@@ -141,10 +141,10 @@ public abstract class Entity {
 	}
 
 	public Item drop(int index){
-		if(index < 50)
-	        return new Item(30, "Item");
-		else
-			return new Item(31, "Meti");
+		index = index % this.inventory.getSize();
+		Item item = this.inventory.getItem(index);
+		this.inventory.removeItem(index);
+		return item;
     }
 
 	public abstract Entity duplicate();

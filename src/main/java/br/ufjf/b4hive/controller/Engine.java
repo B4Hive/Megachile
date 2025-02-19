@@ -18,13 +18,13 @@ public class Engine {
     private static boolean running = false;
     private static FieldMap field;
     private static Bee player;
-    private static List<Entity> entities; //vou precisar dessa pra cooldown management, vou provavelmente usar a mesma também pra effect management
+    private static List<Entity> entities;
     
     public static void newGame(){
         running = true;
         DataBank.initData();
         field = new FieldMap();
-        player = new Bee(10, "@Player");
+        player = new Bee(99, "@Player");
         player.getInventory().addItem(DataBank.getRandItem());
         player.setPosition(new Coordinate(0, 0));
         field.getTile(player.getPosition()).setEntity(player);
@@ -83,25 +83,20 @@ public class Engine {
             return tile.getItem().getInfo();
         }
         // incluir tipo de tile depois se possível
-        return "Empty";
+        return null;
     }
 
     public static Tile generateTile(){
         if(!running) System.exit(0);
 
-        int t = (int) (Math.random() * 10);
+        int t = (int) (Math.random() * 3);
         int e = (int) (Math.random() * 10);
         Entity en = null;
-        Tile tile;
         if(e < 1){
             en = DataBank.getRandEntity();
             entities.add(en);
         }
-        if(t > 9){
-            tile = new Tile(1);
-        } else{
-            tile = new Tile(0);
-        }
+        Tile tile = new Tile(t);
         tile.setEntity(en);
         return tile;
     }
@@ -207,7 +202,7 @@ public class Engine {
 
     public static List<String> tick(){
         if(!running) System.exit(0);
-
+//IA entra aqui
         List<String> effects = new ArrayList<>();
         for(Entity e : entities){
             List <String> temp;

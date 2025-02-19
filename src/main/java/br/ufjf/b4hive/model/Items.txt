@@ -1,0 +1,26 @@
+Items a serem incluidos no jogo
+Nome(Icone) = receita/origem;
+Materiais Coletáveis:
+    Polem(*) = Flor
+    Nectar(~) = Flor
+    Folhas(¤) = Flor/Arvore
+    Resina(&) = Arvore
+    Pétalas(v) = Flor
+    Frutas(o) = Arvore
+    Agua(;) //ainda não implementei isso
+    Exoesqueleto(e) = Inimigo
+Materiais Craftaveis:
+    Mel(H) = Nectar * 3
+    Cera(=) = Resina * 2
+    Pão de abelha(p) = Polem * 2 + Nectar
+    Ninho(#) Folhas *5 + Resina * 2
+Equipamentos:
+    Cortador(>) = Petalas * 3 + Resina
+    Armadura(a) = Exoesqueleto * 3 + Folhas * 2
+    Ferrão(f) = Exoesqueleto + Cera + Resina
+Entidades no mapa:
+    Inimigo(X)
+    Flor(F)
+    Ninho(#) //vou poder andar sobre esse
+    Buraco(-) //não sei se mantenho esse
+    Arvore(T)
