@@ -75,7 +75,7 @@ public abstract class Entity {
 	}
 
     void setInventory(Inventory duplicate) {
-		//this.clearInventory();
+		this.clearInventory();
 		this.inventory.holdItem(duplicate.getHand());
 		this.inventory.setBody(duplicate.getBody());
 		for(int i = 2; i < duplicate.getSize(); i++){
@@ -149,5 +149,9 @@ public abstract class Entity {
     }
 
 	public abstract Entity duplicate();
+
+    private void clearInventory() {
+        this.inventory.clear();
+    }
 
 }

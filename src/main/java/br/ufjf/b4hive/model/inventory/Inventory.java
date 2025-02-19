@@ -121,4 +121,10 @@ public class Inventory {
         return inv;
     }
 
+    public void clear() {
+        this.items.clear();
+        this.hand = null;
+        this.body = null;
+    }
+
 }

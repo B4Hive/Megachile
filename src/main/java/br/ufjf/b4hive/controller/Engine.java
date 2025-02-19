@@ -124,11 +124,27 @@ public class Engine {
             return e.getName() + " moved to (" + newPos.x() + ", " + newPos.y() + ")";
         }
         if (!field.getTile(newPos).getEntity().equals(e))
-            return e.getName() + " attacks, " + field.getTile(newPos).getEntity().takeDamage(e.atk());
+            return basicAttack(e, newPos);
         return null;
     }
 
-    public static String attack(int x, int y){
+    public static String basicAttack(int x, int y){
+        if(!running) System.exit(0);
+
+        x = player.getPosition().x() + x;
+        y = player.getPosition().y() - y;
+        Entity e = field.getTile(x, y).getEntity();
+        if(e != null){
+            return basicAttack(player, new Coordinate(x, y));
+        }
+        return null;
+    }
+    
+    public static String basicAttack(Entity e, Coordinate newPos) {
+        return e.getName() + " attacks, " + field.getTile(newPos).getEntity().takeDamage(e.atk());
+    }
+
+    public static String useAbility(int x, int y){
         if(!running) System.exit(0);
 
         x = player.getPosition().x() + x;
