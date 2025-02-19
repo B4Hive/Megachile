@@ -19,7 +19,12 @@ public class Armor extends Equipment{
 
     @Override
     public String getInfo(){
-        return super.getInfo() + " - Defense: " + getValue();
+        return super.getInfo() + " - Defense: " + this.getValue();
+    }
+
+    @Override
+    public Item duplicate() {
+        return new Armor(this.getID(), this.getName(), this.getValue());
     }
 
 }

@@ -51,4 +51,8 @@ public class Item {
     public String use(Inventory father, int n){
         return "Cannot use this item.";
     }
+
+    public Item duplicate() {
+        return new Item(this.getID(), this.getName());
+    }
 }

@@ -29,4 +29,9 @@ public class Bee extends Entity{
         return getInventory().getItem(n).use(getInventory(), n);
     }
 
+    @Override
+    public Entity duplicate() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

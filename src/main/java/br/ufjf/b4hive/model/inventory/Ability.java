@@ -39,9 +39,11 @@ public class Ability {
     public Effect use(int status){
         if(this.cooldown <= 0){
             this.resetCooldown();
-            this.effect.setValue(status);
-            return this.effect;
+            Effect e = this.effect.duplicate();
+            e.setValue(status);
+            return e;
         }
         return null;
     }
+
 }

@@ -33,7 +33,7 @@ public class Inventory {
         }
     }
 
-    public Item getBody() {
+    public Armor getBody() {
         return body;
     }
 
@@ -105,6 +105,20 @@ public class Inventory {
     public void tickCooldown() {
         if (this.getHand() instanceof Weapon weapon)
             weapon.getAbility().tickCooldown();
+    }
+
+    public Inventory duplicate() {
+        Inventory inv = new Inventory();
+        for (Item item : this.items) {
+            inv.addItem(item.duplicate());
+        }
+        if (this.hand != null) {
+            inv.holdItem(hand.duplicate());
+        }
+        if (this.body != null) {
+            inv.setBody((Armor) body.duplicate());
+        }
+        return inv;
     }
 
 }

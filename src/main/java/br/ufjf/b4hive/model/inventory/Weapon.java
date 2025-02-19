@@ -34,4 +34,9 @@ public class Weapon extends Equipment{
         }
         return null;
     }
+
+    @Override
+    public Item duplicate() {
+        return new Weapon(getID(), getName(), getValue(), new Ability(ability.getCooldownMax(), ability.getEffect().duplicate()));
+    }
 }

@@ -11,4 +11,11 @@ public class Breakable extends Entity{
         return 0;
     }
 
+    @Override
+    public Entity duplicate() {
+        Entity e = new Breakable(this.getID(), this.getName());
+        e.setInventory(this.getInventory().duplicate());
+        return e;
+    }
+
 }

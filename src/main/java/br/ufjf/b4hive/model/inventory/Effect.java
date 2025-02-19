@@ -72,4 +72,8 @@ public class Effect {
         return temp;
     }
 
+    public Effect duplicate() {
+        return new Effect(this.id, this.name, this.multiplier, this.duration);
+    }
+
 }

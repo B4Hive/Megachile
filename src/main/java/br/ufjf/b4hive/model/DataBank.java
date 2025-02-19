@@ -41,34 +41,28 @@ public class DataBank {
         tempItem = new Item(31, "Item2");
         items.add(tempItem);
 
-        for(int i = 0; i < 50; i++){
-            Breakable tempBreakable = new Breakable(20, "Breakable");
-            for(int j = 0; j < 5; j++) tempBreakable.getInventory().addItem(getRandItem());
-            entities.add(tempBreakable);
-        }
+        Breakable tempBreakable = new Breakable(20, "Breakable");
+        for(int j = 0; j < 5; j++) tempBreakable.getInventory().addItem(getRandItem());
+        entities.add(tempBreakable);
 
     }
 
     public static Entity getRandEntity(){
-        //tem que criar uma nova entidade aleatória ao invés de pegar do banco
-        return entities.get((int)(Math.random() * entities.size()));
+        return entities.get((int)(Math.random() * entities.size())).duplicate();
     }
 
     public static Item getRandItem(){
-        //tem que criar uma cópia do item do banco
-        return items.get((int)(Math.random() * items.size()));
+        return items.get((int)(Math.random() * items.size())).duplicate();
     }
 
     public static Item getItem(int id){
-        //tem que criar uma cópia do item do banco
         for(Item i : items){
-            if(i.getID() == id) return i;
+            if(i.getID() == id) return i.duplicate();
         }
         return null;
     }
     public static Effect getRandEffect(){
-        //tem que criar uma cópia do efeito do banco
-        return effects.get((int)(Math.random() * effects.size()));
+        return effects.get((int)(Math.random() * effects.size())).duplicate();
     }
 
 }

@@ -48,8 +48,8 @@ public abstract class Entity {
 	}
 
 	public int getMaxHP(){
-		if (this.inventory.getBody() instanceof Armor armor)
-			return 10 + armor.getValue();
+		if (this.inventory.getBody() != null)
+			return 10 + this.inventory.getBody().getValue();
 		else
 			return 10;
 	}
@@ -73,6 +73,15 @@ public abstract class Entity {
 	public Inventory getInventory(){
 		return this.inventory;
 	}
+
+    void setInventory(Inventory duplicate) {
+		//this.clearInventory();
+		this.inventory.holdItem(duplicate.getHand());
+		this.inventory.setBody(duplicate.getBody());
+		for(int i = 2; i < duplicate.getSize(); i++){
+			this.inventory.addItem(duplicate.getItem(i));
+		}
+    }
 
 	public List<Effect> getEffects(){
 		return this.effects;
@@ -137,5 +146,7 @@ public abstract class Entity {
 		else
 			return new Item(31, "Meti");
     }
+
+	public abstract Entity duplicate();
 
 }
