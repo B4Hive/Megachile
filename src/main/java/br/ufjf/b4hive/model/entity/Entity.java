@@ -141,6 +141,7 @@ public abstract class Entity {
 	}
 
 	public Item drop(int index){
+		//will need some updates to avoid entities dropping equipped items
 		index = index % this.inventory.getSize();
 		Item item = this.inventory.getItem(index);
 		this.inventory.removeItem(index);
