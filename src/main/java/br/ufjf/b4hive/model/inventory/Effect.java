@@ -54,7 +54,7 @@ public class Effect {
     }
 
     public String getInfo() {
-        return "Effect: [" + this.name //won't be ID
+        return "Effect: [" + this.name
                 + "; Multiplier: " + this.multiplier + "; Duration: " + this.duration + "]";
     }
 
