@@ -1,5 +1,7 @@
 package br.ufjf.b4hive.model.inventory;
 
-public class Recipe {
-    
+public record Recipe(int resultID, Ingredient[] ingredients) {
+    public Recipe {
+        ingredients = ingredients.clone(); // Defensive copy
+    }
 }
