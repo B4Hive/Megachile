@@ -275,25 +275,21 @@ public class CLIScreen {
 				printLog(log);
 				option = CLI.getChar();
 				switch (option) {
-					case 'w', 'a', 's', 'd' -> {
-						switch (option) {
-							case 'w' -> {
-								if (y > 0)
-									y--;
-							}
-							case 'a' -> {
-								if (x > 0)
-									x--;
-							}
-							case 's' -> {
-								if (y < size - 1)
-									y++;
-							}
-							case 'd' -> {
-								if (x < size - 1)
-									x++;
-							}
-						}
+					case 'w' -> {
+						if (y > 0)
+							y--;
+					}
+					case 'a' -> {
+						if (x > 0)
+							x--;
+					}
+					case 's' -> {
+						if (y < size - 1)
+							y++;
+					}
+					case 'd' -> {
+						if (x < size - 1)
+							x++;
 					}
 					case 'e' -> {
 						int xField = x - (size / 2);
@@ -307,43 +303,39 @@ public class CLIScreen {
 				}
 			}
 			else {
-			System.out.println("WASD - Move | E - Attack | Z - Skill | Q - Back");
-			log.add("Input your command: ");
-			printLog(log);
-			option = CLI.getChar();
-			switch (option) {
-				case 'w', 'a', 's', 'd' -> {
-					switch (option) {
-						case 'w' -> {
-							if (y > 0)
-								y--;
-						}
-						case 'a' -> {
-							if (x > 0)
-								x--;
-						}
-						case 's' -> {
-							if (y < size - 1)
-								y++;
-						}
-						case 'd' -> {
-							if (x < size - 1)
-								x++;
-						}
+				System.out.println("WASD - Move | E - Attack | Z - Skill | Q - Back");
+				log.add("Input your command: ");
+				printLog(log);
+				option = CLI.getChar();
+				switch (option) {
+					case 'w' -> {
+						if (y > 0)
+							y--;
 					}
-				}
-				case 'e' -> {
-					int xField = x - (size / 2);
-					int yField = y - (size / 2);
-					String temp = Engine.basicAttack(xField, yField);
-					log.add(temp);
-				}
-				case 'z' -> {
-					int xField = x - (size / 2);
-					int yField = y - (size / 2);
-					String temp = Engine.useAbility(xField, yField);
-					log.add(temp);
-					return temp;
+					case 'a' -> {
+						if (x > 0)
+							x--;
+					}
+					case 's' -> {
+						if (y < size - 1)
+							y++;
+					}
+					case 'd' -> {
+						if (x < size - 1)
+							x++;
+					}
+					case 'e' -> {
+						int xField = x - (size / 2);
+						int yField = y - (size / 2);
+						String temp = Engine.basicAttack(xField, yField);
+						log.add(temp);
+					}
+					case 'z' -> {
+						int xField = x - (size / 2);
+						int yField = y - (size / 2);
+						String temp = Engine.useAbility(xField, yField);
+						log.add(temp);
+						return temp;
 					}
 					default -> {
 
