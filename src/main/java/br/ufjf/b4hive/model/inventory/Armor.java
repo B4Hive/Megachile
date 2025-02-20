@@ -1,6 +1,6 @@
 package br.ufjf.b4hive.model.inventory;
 
-public class Armor extends Equipment{
+public class Armor extends Equipment {
 
     public Armor(int id, String name, int value) {
         super(id, name, value);
@@ -8,7 +8,7 @@ public class Armor extends Equipment{
 
     @Override
     public String use(Inventory father, int n) {
-        if(father.getBody() == null){
+        if (father.getBody() == null) {
             father.addItem(father.getBody());
             father.setBody(this);
             father.removeItem(n);
@@ -18,13 +18,18 @@ public class Armor extends Equipment{
     }
 
     @Override
-    public String getInfo(){
+    public String getInfo() {
         return super.getInfo() + " - Defense: " + this.getValue();
     }
 
     @Override
     public Item duplicate() {
         return new Armor(this.getID(), this.getName(), this.getValue());
+    }
+
+    @Override
+    public Item duplicate(int level) {
+        return new Armor(this.getID(), this.getName(), (this.getValue() + level));
     }
 
 }

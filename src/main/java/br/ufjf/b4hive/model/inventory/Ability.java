@@ -25,19 +25,20 @@ public class Ability {
     }
 
     public void tickCooldown() {
-        if (this.cooldown > 0) this.cooldown--;
+        if (this.cooldown > 0)
+            this.cooldown--;
     }
 
     public Effect getEffect() {
         return this.effect;
     }
 
-    public String getInfo(){
+    public String getInfo() {
         return effect.getInfo() + " - Cooldown: " + this.cooldown + "/" + this.cooldownMax;
     }
 
-    public Effect use(int status){
-        if(this.cooldown <= 0){
+    public Effect use(int status) {
+        if (this.cooldown <= 0) {
             this.resetCooldown();
             Effect e = this.effect.duplicate();
             e.setValue(status);

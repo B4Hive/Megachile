@@ -1,6 +1,6 @@
 package br.ufjf.b4hive.model.inventory;
 
-public class Equipment extends Item{
+public abstract class Equipment extends Item {
 
     private final int value;
 
@@ -10,8 +10,9 @@ public class Equipment extends Item{
     }
 
     public int getValue() {
-        return value;
+        return this.value;
     }
 
-}
+    public abstract Item duplicate(int level);
 
+}

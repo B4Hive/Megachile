@@ -7,17 +7,19 @@ import br.ufjf.b4hive.controller.CLI;
 import br.ufjf.b4hive.controller.Engine;
 
 public class CLIScreen {
-    private static int[][] visibleMap;
+	private static int[][] visibleMap;
 	private static int size;
 
-	public static void show(int s){
+	public static void show(int s) {
 		init(s);
 		mainMenuScreen();
 	}
 
-	private static void init(int s){
-		if(s < 7) s = 7;
-		else if(s % 2 == 0) s++;
+	private static void init(int s) {
+		if (s < 7)
+			s = 7;
+		else if (s % 2 == 0)
+			s++;
 		size = s;
 		visibleMap = new int[size][size];
 		Dictionary.init();
@@ -30,7 +32,7 @@ public class CLIScreen {
 			System.out.println();
 			System.out.print("Input your command: ");
 			option = CLI.getChar();
-			switch(option){
+			switch (option) {
 				case 's' -> {
 					Engine.newGame();
 					gameScreen();
@@ -41,49 +43,49 @@ public class CLIScreen {
 					System.exit(0);
 				}
 				default -> {
-					
+
 				}
 			}
 		} while (option != 'q');
 	}
 
-	private static void printMainMenu(){
+	private static void printMainMenu() {
 		CLI.clear();
 
 		System.out.print(" ╔═");
-        for (int i = 0; i < size; i++) {
-            System.out.print("═══");
-        }
-        System.out.println("═╗ ");
+		for (int i = 0; i < size; i++) {
+			System.out.print("═══");
+		}
+		System.out.println("═╗ ");
 
-		for(int i = 0; i < size; i++){
+		for (int i = 0; i < size; i++) {
 			System.out.print(" ║ ");
-			if (i == 1){
-				for(int j = 0; j < ((size-3) * 3)/2; j++){
+			if (i == 1) {
+				for (int j = 0; j < ((size - 3) * 3) / 2; j++) {
 					System.out.print(" ");
 				}
 				System.out.print("MEGACHILE");
-				for(int j = 0; j < ((size-3) * 3)/2; j++){
+				for (int j = 0; j < ((size - 3) * 3) / 2; j++) {
 					System.out.print(" ");
 				}
-			} else if(i == (size/2) - 1){
-				for(int j = 0; j < ((size-3) * 3)/2; j++){
+			} else if (i == (size / 2) - 1) {
+				for (int j = 0; j < ((size - 3) * 3) / 2; j++) {
 					System.out.print(" ");
 				}
 				System.out.print("S - Start");
-				for(int j = 0; j < ((size-3) * 3)/2; j++){
+				for (int j = 0; j < ((size - 3) * 3) / 2; j++) {
 					System.out.print(" ");
 				}
-			} else if (i == (size/2) + 1){
-				for(int j = 0; j < ((size-3) * 3)/2; j++){
+			} else if (i == (size / 2) + 1) {
+				for (int j = 0; j < ((size - 3) * 3) / 2; j++) {
 					System.out.print(" ");
 				}
 				System.out.print("Q - Quit ");
-				for(int j = 0; j < ((size-3) * 3)/2; j++){
+				for (int j = 0; j < ((size - 3) * 3) / 2; j++) {
 					System.out.print(" ");
 				}
 			} else {
-				for(int j = 0; j < size*3; j++){
+				for (int j = 0; j < size * 3; j++) {
 					System.out.print(" ");
 				}
 			}
@@ -91,10 +93,10 @@ public class CLIScreen {
 		}
 
 		System.out.print(" ╚═");
-        for (int i = 0; i < size; i++) {
-            System.out.print("═══");
-        }
-        System.out.println("═╝ ");
+		for (int i = 0; i < size; i++) {
+			System.out.print("═══");
+		}
+		System.out.println("═╝ ");
 	}
 
 	private static void gameScreen() {
@@ -142,29 +144,30 @@ public class CLIScreen {
 					log.add(Engine.terminal(temp));
 				}
 				default -> {
-					
+
 				}
 			}
-			if (temp != null) log.addAll(Engine.tick());
+			if (temp != null)
+				log.addAll(Engine.tick());
 		} while (option != 'q');
 	}
 
-	private static void updateVisibleMap(){
+	private static void updateVisibleMap() {
 		visibleMap = Engine.getVisibleMap(size);
 	}
 
-	private static void printMap(){
+	private static void printMap() {
 		CLI.clear();
 
 		System.out.print(" ╔═");
-        for (int i = 0; i < size; i++) {
-            System.out.print("═══");
-        }
-        System.out.println("═╗ ");
-		
-		for(int j = 0; j < size; j++){
+		for (int i = 0; i < size; i++) {
+			System.out.print("═══");
+		}
+		System.out.println("═╗ ");
+
+		for (int j = 0; j < size; j++) {
 			System.out.print(" ║ ");
-			for(int i = 0; i < size; i++){
+			for (int i = 0; i < size; i++) {
 				System.out.print(" ");
 				System.out.print(Dictionary.getIcon(visibleMap[i][j]));
 				System.out.print(" ");
@@ -173,36 +176,37 @@ public class CLIScreen {
 		}
 
 		System.out.print(" ╠═");
-        for (int i = 0; i < size; i++) {
-            System.out.print("═══");
-        }
-        System.out.println("═╣ ");
+		for (int i = 0; i < size; i++) {
+			System.out.print("═══");
+		}
+		System.out.println("═╣ ");
 	}
 
-	private static void printBar(){
+	private static void printBar() {
 		System.out.print(" ║ ");
-		for(int j = 0; j < (size * 3); j++){
+		for (int j = 0; j < (size * 3); j++) {
 			System.out.print(" "); // 4 lines: HP, Hunger, Position, QuickSlots
 		}
 		System.out.println(" ║ ");
 
 		System.out.print(" ╚═");
-        for (int i = 0; i < size; i++) {
-            System.out.print("═══");
-        }
-        System.out.println("═╝ ");
+		for (int i = 0; i < size; i++) {
+			System.out.print("═══");
+		}
+		System.out.println("═╝ ");
 	}
 
-	private static void printLog(List<String> log){
-		for(String s : log){
-			if(s == null) continue;
+	private static void printLog(List<String> log) {
+		for (String s : log) {
+			if (s == null)
+				continue;
 			System.out.println();
 			System.out.print(s);
 		}
 		log.clear();
 	}
 
-	private static String inventoryScreen(){
+	private static String inventoryScreen() {
 		char option;
 		do {
 			printInventory();
@@ -215,25 +219,26 @@ public class CLIScreen {
 			} catch (NumberFormatException e) {
 				n = -1;
 			}
-			if(n >= 0 && n < Engine.listPlayerInventory().size()){
+			if (n >= 0 && n < Engine.listPlayerInventory().size()) {
 				String temp = itemScreen(n);
-				if(temp != null) return temp;
+				if (temp != null)
+					return temp;
 			}
 		} while (option != 'q');
 		return null;
 	}
 
-	private static void printInventory(){
+	private static void printInventory() {
 		CLI.clear();
 		System.out.println("Inventory: ");
 		List<String> inventory = Engine.listPlayerInventory();
-		for(int i = 0; i < inventory.size(); i++){
+		for (int i = 0; i < inventory.size(); i++) {
 			System.out.print(i + " - ");
 			System.out.println(inventory.get(i));
 		}
 	}
 
-	private static String itemScreen(int n){
+	private static String itemScreen(int n) {
 		char option;
 		do {
 			printItem(n);
@@ -241,11 +246,11 @@ public class CLIScreen {
 			System.out.print("Input your command: ");
 			option = CLI.getChar();
 
-			if(option == 'e'){
+			if (option == 'e') {
 				String temp = Engine.useItem(n);
 				return temp;
 			}
-			if(option == 'z'){
+			if (option == 'z') {
 				String temp = Engine.dropItem(n);
 				return temp;
 			}
@@ -253,16 +258,16 @@ public class CLIScreen {
 		return null;
 	}
 
-	private static void printItem(int n){
+	private static void printItem(int n) {
 		CLI.clear();
 		System.out.println("Item: ");
 		System.out.println(Engine.playerItemInfo(n));
 	}
 
-	private static String lookScreen(){
+	private static String lookScreen() {
 		List<String> log = new ArrayList<>();
-		int x = size/2;
-		int y = size/2;
+		int x = size / 2;
+		int y = size / 2;
 		char option;
 		do {
 			updateVisibleMap();
@@ -276,37 +281,42 @@ public class CLIScreen {
 				case 'w', 'a', 's', 'd' -> {
 					switch (option) {
 						case 'w' -> {
-							if(y > 0) y--;
+							if (y > 0)
+								y--;
 						}
 						case 'a' -> {
-							if(x > 0) x--;
+							if (x > 0)
+								x--;
 						}
 						case 's' -> {
-							if(y < size - 1) y++;
+							if (y < size - 1)
+								y++;
 						}
 						case 'd' -> {
-							if(x < size - 1) x++;
+							if (x < size - 1)
+								x++;
 						}
 					}
 				}
 				case 'e' -> {
-					int xField = x - (size/2);
-					int yField = y - (size/2);
+					int xField = x - (size / 2);
+					int yField = y - (size / 2);
 					String temp = Engine.lookInto(xField, yField);
 					log.add(temp);
 				}
 				default -> {
-					
+
 				}
 			}
 		} while (option != 'q');
 		return null;
 	}
-// will merge the aimScreen and lookScreen methods using the option character
-	private static String aimScreen(){
+
+	// will merge the aimScreen and lookScreen methods using the option character
+	private static String aimScreen() {
 		List<String> log = new ArrayList<>();
-		int x = size/2;
-		int y = size/2;
+		int x = size / 2;
+		int y = size / 2;
 		char option;
 		do {
 			updateVisibleMap();
@@ -320,66 +330,74 @@ public class CLIScreen {
 				case 'w', 'a', 's', 'd' -> {
 					switch (option) {
 						case 'w' -> {
-							if(y > 0) y--;
+							if (y > 0)
+								y--;
 						}
 						case 'a' -> {
-							if(x > 0) x--;
+							if (x > 0)
+								x--;
 						}
 						case 's' -> {
-							if(y < size - 1) y++;
+							if (y < size - 1)
+								y++;
 						}
 						case 'd' -> {
-							if(x < size - 1) x++;
+							if (x < size - 1)
+								x++;
 						}
 					}
 				}
 				case 'e' -> {
-					int xField = x - (size/2);
-					int yField = y - (size/2);
+					int xField = x - (size / 2);
+					int yField = y - (size / 2);
 					String temp = Engine.basicAttack(xField, yField);
 					log.add(temp);
 				}
 				case 'z' -> {
-					int xField = x - (size/2);
-					int yField = y - (size/2);
+					int xField = x - (size / 2);
+					int yField = y - (size / 2);
 					String temp = Engine.useAbility(xField, yField);
 					log.add(temp);
 					return temp;
 				}
-				default ->{
-					//message with invalid command
+				default -> {
+
 				}
 			}
 		} while (option != 'q');
 		return null;
 	}
 
-	private static void printLookScreen(int x, int y){
+	private static void printLookScreen(int x, int y) {
 		CLI.clear();
 
 		System.out.print(" ╔═");
-        for (int i = 0; i < size; i++) {
-            System.out.print("═══");
-        }
-        System.out.println("═╗ ");
-		
-		for(int j = 0; j < size; j++){
+		for (int i = 0; i < size; i++) {
+			System.out.print("═══");
+		}
+		System.out.println("═╗ ");
+
+		for (int j = 0; j < size; j++) {
 			System.out.print(" ║ ");
-			for(int i = 0; i < size; i++){
-				if (x != i || y != j) System.out.print(" ");
-				else System.out.print("[");
+			for (int i = 0; i < size; i++) {
+				if (x != i || y != j)
+					System.out.print(" ");
+				else
+					System.out.print("[");
 				System.out.print(Dictionary.getIcon(visibleMap[i][j]));
-				if (x != i || y != j) System.out.print(" ");
-				else System.out.print("]");
+				if (x != i || y != j)
+					System.out.print(" ");
+				else
+					System.out.print("]");
 			}
 			System.out.println(" ║ ");
 		}
 
 		System.out.print(" ╠═");
-        for (int i = 0; i < size; i++) {
-            System.out.print("═══");
-        }
-        System.out.println("═╣ ");
+		for (int i = 0; i < size; i++) {
+			System.out.print("═══");
+		}
+		System.out.println("═╣ ");
 	}
 
 }

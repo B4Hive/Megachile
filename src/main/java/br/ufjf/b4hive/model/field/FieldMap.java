@@ -6,22 +6,25 @@ import java.util.Map;
 import br.ufjf.b4hive.controller.Engine;
 
 public class FieldMap {
-    private final Map <Coordinate, Tile> map;
+    private final Map<Coordinate, Tile> map;
 
-    public FieldMap(){
+    public FieldMap() {
         this.map = new HashMap<>();
     }
-    public Tile getTile(Coordinate c){
-        if(!map.containsKey(c)){
+
+    public Tile getTile(Coordinate c) {
+        if (!map.containsKey(c)) {
             generateTile(c);
         }
         return map.get(c);
     }
-    public Tile getTile(int x, int y){
+
+    public Tile getTile(int x, int y) {
         Coordinate c = new Coordinate(x, y);
         return getTile(c);
     }
-    private void generateTile(Coordinate c){
+
+    private void generateTile(Coordinate c) {
         map.put(c, Engine.generateTile());
     }
 

@@ -3,11 +3,10 @@ package br.ufjf.b4hive.model.inventory;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Inventory {
-    
+
     private final List<Item> items;
-    private Item hand; //type:Weapon
+    private Item hand; // type:Weapon
     private Armor body;
 
     public Inventory() {
@@ -15,17 +14,16 @@ public class Inventory {
         this.hand = null;
         this.body = null;
     }
-    
+
     public Item getHand() {
         return hand;
     }
 
-    public void holdItem(Item item){
-        if (this.hand == null){
+    public void holdItem(Item item) {
+        if (this.hand == null) {
             this.hand = item;
             this.items.remove(item);
-        }
-        else {
+        } else {
             Item temp = this.hand;
             this.hand = item;
             this.items.remove(item);
@@ -41,24 +39,24 @@ public class Inventory {
         this.body = body;
     }
 
-    public Item getItem(int index){
-        if(index < 0 || index >= getSize()){
+    public Item getItem(int index) {
+        if (index < 0 || index >= getSize()) {
             return null;
-        } else if(index == 0)
+        } else if (index == 0)
             return getHand();
-        else if(index == 1)
+        else if (index == 1)
             return getBody();
         return items.get(index - 2);
     }
 
-    public Item dropItem(int index){
-        if(index < 0 || index >= getSize()){
+    public Item dropItem(int index) {
+        if (index < 0 || index >= getSize()) {
             return null;
-        } else if(index == 0){
+        } else if (index == 0) {
             Item temp = hand;
             hand = null;
             return temp;
-        } else if(index == 1){
+        } else if (index == 1) {
             Item temp = body;
             body = null;
             return temp;
@@ -68,17 +66,17 @@ public class Inventory {
         return temp;
     }
 
-    public int getSize(){
+    public int getSize() {
         return items.size() + 2;
     }
 
-    public boolean isFull(){
+    public boolean isFull() {
         return getSize() >= 10;
     }
 
-    public String addItem(Item item){
+    public String addItem(Item item) {
         // add max size condition (or switch to array)
-        if(item == null){
+        if (item == null) {
             return null;
         } else {
             items.add(item);
@@ -87,9 +85,9 @@ public class Inventory {
         }
     }
 
-    public String removeItem(int index){
+    public String removeItem(int index) {
         String result;
-        if(getItem(index) == null){
+        if (getItem(index) == null) {
             result = "Item not found in the inventory.";
         } else {
             result = "Destroyed " + getItem(index).getName() + " from the inventory.";
@@ -98,7 +96,7 @@ public class Inventory {
         return result;
     }
 
-    private void organize(){
+    private void organize() {
         items.sort((item1, item2) -> item1.getName().compareToIgnoreCase(item2.getName()));
     }
 

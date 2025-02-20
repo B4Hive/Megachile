@@ -1,6 +1,6 @@
 package br.ufjf.b4hive.model.entity;
 
-public class Breakable extends Entity{
+public class Breakable extends Entity {
 
     public Breakable(int id, String name) {
         super(id, name);
@@ -12,8 +12,8 @@ public class Breakable extends Entity{
     }
 
     @Override
-    public Entity duplicate() {
-        Entity e = new Breakable(this.getID(), this.getName());
+    public Breakable duplicate() {
+        Breakable e = new Breakable(this.getID(), this.getName());
         e.setInventory(this.getInventory().duplicate());
         return e;
     }

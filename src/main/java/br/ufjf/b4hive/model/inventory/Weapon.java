@@ -1,7 +1,7 @@
 package br.ufjf.b4hive.model.inventory;
 
-public class Weapon extends Equipment{
-    
+public class Weapon extends Equipment {
+
     private final Ability ability;
 
     public Weapon(int id, String name, int value, Ability ability) {
@@ -11,7 +11,7 @@ public class Weapon extends Equipment{
 
     @Override
     public String use(Inventory inventory, int n) {
-        if(inventory.getHand() == this){
+        if (inventory.getHand() == this) {
             return "Already equipped.";
         }
         inventory.holdItem(this);
@@ -20,16 +20,16 @@ public class Weapon extends Equipment{
     }
 
     @Override
-    public String getInfo(){
+    public String getInfo() {
         return super.getInfo() + " - Damage: " + getValue() + " - " + ability.getInfo();
     }
 
-    public Ability getAbility(){
+    public Ability getAbility() {
         return ability;
     }
-    
-    public Effect useAbility(Inventory inventory){
-        if(inventory.getHand() == this){
+
+    public Effect useAbility(Inventory inventory) {
+        if (inventory.getHand() == this) {
             return ability.use(getValue());
         }
         return null;
@@ -37,6 +37,13 @@ public class Weapon extends Equipment{
 
     @Override
     public Item duplicate() {
-        return new Weapon(getID(), getName(), getValue(), new Ability(ability.getCooldownMax(), ability.getEffect().duplicate()));
+        return new Weapon(getID(), getName(), getValue(),
+                new Ability(ability.getCooldownMax(), ability.getEffect().duplicate()));
+    }
+
+    @Override
+    public Item duplicate(int level) {
+        return new Weapon(getID(), getName(), (getValue() + level),
+                new Ability(ability.getCooldownMax(), ability.getEffect().duplicate()));
     }
 }

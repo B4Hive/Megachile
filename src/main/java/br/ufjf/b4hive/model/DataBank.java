@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ufjf.b4hive.model.entity.Breakable;
+import br.ufjf.b4hive.model.entity.Enemy;
 import br.ufjf.b4hive.model.entity.Entity;
 import br.ufjf.b4hive.model.inventory.Ability;
 import br.ufjf.b4hive.model.inventory.Armor;
@@ -14,12 +15,13 @@ import br.ufjf.b4hive.model.inventory.Weapon;
 public class DataBank {
 
     private static final List<Entity> entities = new ArrayList<>();
+    private static final List<Enemy> enemies = new ArrayList<>();
     private static final List<Item> items = new ArrayList<>();
     private static final List<Effect> effects = new ArrayList<>();
 
-    public static void initData(){
+    public static void initData() {
 
-        Effect tempEffect = new Effect(50, "dot",0.5f, 3);
+        Effect tempEffect = new Effect(50, "dot", 0.5f, 3);
         effects.add(tempEffect);
         Ability tempAbility = new Ability(5, tempEffect);
         Weapon tempWeapon = new Weapon(40, "Stinger", 5, tempAbility);
@@ -65,30 +67,36 @@ public class DataBank {
         tempBreakable = new Breakable(22, "Nest");
         entities.add(tempBreakable);
 
-        tempBreakable = new Breakable(90, "Enemy"); // enemy
-        tempBreakable.getInventory().addItem(getItem(17));
-        // tempBreakable.getInventory().holdItem(getItem(40));
-        // tempBreakable.getInventory().useItem(getItem(41));
-        entities.add(tempBreakable);
+        Enemy tempEnemy = new Enemy(90, "Enemy");
+        tempEnemy.getInventory().addItem(getItem(17));
+        tempEnemy.getInventory().holdItem(getItem(40));
+        tempEnemy.getInventory().setBody((Armor) getItem(41));
+        enemies.add(tempEnemy);
 
     }
 
-    public static Entity getRandEntity(){
-        return entities.get((int)(Math.random() * entities.size())).duplicate();
+    public static Entity getRandEntity() {
+        return entities.get((int) (Math.random() * entities.size())).duplicate();
     }
 
-    public static Item getRandItem(){
-        return items.get((int)(Math.random() * items.size())).duplicate();
+    public static Enemy getRandEnemy() {
+        return enemies.get((int) (Math.random() * enemies.size())).duplicate();
     }
 
-    public static Item getItem(int id){
-        for(Item i : items){
-            if(i.getID() == id) return i.duplicate();
+    public static Item getRandItem() {
+        return items.get((int) (Math.random() * items.size())).duplicate();
+    }
+
+    public static Item getItem(int id) {
+        for (Item i : items) {
+            if (i.getID() == id)
+                return i.duplicate();
         }
         return null;
     }
-    public static Effect getRandEffect(){
-        return effects.get((int)(Math.random() * effects.size())).duplicate();
+
+    public static Effect getRandEffect() {
+        return effects.get((int) (Math.random() * effects.size())).duplicate();
     }
 
 }

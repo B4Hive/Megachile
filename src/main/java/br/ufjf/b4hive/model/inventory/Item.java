@@ -14,45 +14,46 @@ public class Item {
         this.durability = this.durabilityMax;
     }
 
-    public int getID(){
+    public int getID() {
         return this.id;
     }
 
-    public String getName(){
+    public String getName() {
         return this.name;
     }
 
-    public int getDurability(){
+    public int getDurability() {
         return this.durability;
     }
 
-    public int getDurabilityMax(){
+    public int getDurabilityMax() {
         return this.durabilityMax;
     }
 
-    public String getInfo(){
+    public String getInfo() {
         return this.name + " - Durability: " + this.durability + "/" + this.durabilityMax;
     }
 
-    public void lowerDurability(int amount){
+    public void lowerDurability(int amount) {
         this.durability -= amount;
-        if(this.durability < 0){
+        if (this.durability < 0) {
             this.durability = 0;
         }
     }
 
-    public void raiseDurability(int amount){
+    public void raiseDurability(int amount) {
         this.durability += amount;
-        if(this.durability > this.durabilityMax){
+        if (this.durability > this.durabilityMax) {
             this.durability = this.durabilityMax;
         }
     }
 
-    public String use(Inventory father, int n){
+    public String use(Inventory father, int n) {
         return "Cannot use this item.";
     }
 
     public Item duplicate() {
         return new Item(this.getID(), this.getName());
     }
+
 }
