@@ -1,10 +1,10 @@
 package br.ufjf.b4hive.view;
 
+import br.ufjf.b4hive.controller.CLI;
+import br.ufjf.b4hive.controller.Engine;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.ufjf.b4hive.controller.CLI;
-import br.ufjf.b4hive.controller.Engine;
 
 public class CLIScreen {
 	private static int[][] visibleMap;
@@ -130,12 +130,8 @@ public class CLIScreen {
 					temp = Engine.takeItem();
 					log.add(temp);
 				}
-				case 'x' -> {
-					temp = lookScreen();
-					log.add(temp);
-				}
-				case 'z' -> {
-					temp = aimScreen();
+				case 'z', 'x' -> {
+					temp = aimScreen(option);
 					log.add(temp);
 				}
 				case 't' -> {
@@ -264,7 +260,7 @@ public class CLIScreen {
 		System.out.println(Engine.playerItemInfo(n));
 	}
 
-	private static String lookScreen() {
+	private static String aimScreen(char o) {
 		List<String> log = new ArrayList<>();
 		int x = size / 2;
 		int y = size / 2;
@@ -273,55 +269,44 @@ public class CLIScreen {
 			updateVisibleMap();
 			printLookScreen(x, y);
 			printBar();
-			System.out.println("WASD - Move | E - Info | Q - Back");
-			log.add("Input your command: ");
-			printLog(log);
-			option = CLI.getChar();
-			switch (option) {
-				case 'w', 'a', 's', 'd' -> {
-					switch (option) {
-						case 'w' -> {
-							if (y > 0)
-								y--;
-						}
-						case 'a' -> {
-							if (x > 0)
-								x--;
-						}
-						case 's' -> {
-							if (y < size - 1)
-								y++;
-						}
-						case 'd' -> {
-							if (x < size - 1)
-								x++;
+			if (o == 'x') {
+				System.out.println("WASD - Move | E - Info | Q - Back");
+				log.add("Input your command: ");
+				printLog(log);
+				option = CLI.getChar();
+				switch (option) {
+					case 'w', 'a', 's', 'd' -> {
+						switch (option) {
+							case 'w' -> {
+								if (y > 0)
+									y--;
+							}
+							case 'a' -> {
+								if (x > 0)
+									x--;
+							}
+							case 's' -> {
+								if (y < size - 1)
+									y++;
+							}
+							case 'd' -> {
+								if (x < size - 1)
+									x++;
+							}
 						}
 					}
-				}
-				case 'e' -> {
-					int xField = x - (size / 2);
-					int yField = y - (size / 2);
-					String temp = Engine.lookInto(xField, yField);
-					log.add(temp);
-				}
-				default -> {
+					case 'e' -> {
+						int xField = x - (size / 2);
+						int yField = y - (size / 2);
+						String temp = Engine.lookInto(xField, yField);
+						log.add(temp);
+					}
+					default -> {
 
+					}
 				}
 			}
-		} while (option != 'q');
-		return null;
-	}
-
-	// will merge the aimScreen and lookScreen methods using the option character
-	private static String aimScreen() {
-		List<String> log = new ArrayList<>();
-		int x = size / 2;
-		int y = size / 2;
-		char option;
-		do {
-			updateVisibleMap();
-			printLookScreen(x, y);
-			printBar();
+			else {
 			System.out.println("WASD - Move | E - Attack | Z - Skill | Q - Back");
 			log.add("Input your command: ");
 			printLog(log);
@@ -359,9 +344,10 @@ public class CLIScreen {
 					String temp = Engine.useAbility(xField, yField);
 					log.add(temp);
 					return temp;
-				}
-				default -> {
+					}
+					default -> {
 
+					}
 				}
 			}
 		} while (option != 'q');
