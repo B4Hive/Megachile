@@ -116,14 +116,14 @@ public class Engine {
 
         Coordinate pos = e.getPosition();
         Coordinate newPos = pos.dislocate(dir);
-        if (field.getTile(newPos).getEntity() == null) {
-            field.getTile(newPos).setEntity(e);
+        Tile tile = field.getTile(newPos);
+        if (tile.getEntity() == null) {
+            tile.setEntity(e);
             field.getTile(pos).setEntity(null);
             e.setPosition(newPos);
             return e.getName() + " moved to (" + newPos.x() + ", " + newPos.y() + ")";
         }
-        if (!field.getTile(newPos).getEntity().equals(e))
-            return basicAttack(e, newPos);
+        if (!tile.getEntity().equals(e)) return basicAttack(e, newPos);
         return null;
     }
 
@@ -150,7 +150,8 @@ public class Engine {
 
         x = player.getPosition().x() + x;
         y = player.getPosition().y() - y;
-        Entity e = field.getTile(x, y).getEntity();
+        Tile tile = field.getTile(x, y);
+        Entity e = tile.getEntity();
         if (e != null) {
             if (player.getInventory().getHand() instanceof Weapon weapon) {
                 Effect temp = weapon.useAbility(player.getInventory());
